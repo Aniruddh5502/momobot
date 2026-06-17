@@ -1,0 +1,41 @@
+{
+  "goal": "Summarize significant AI news from the last 7-14 days, categorized by Models, Research, and Industry/Hardware.",
+  "status": "running",
+  "steps": [
+    {
+      "id": "1",
+      "task": "Search for major AI model releases and architectural breakthroughs from the last 14 days.",
+      "status": "pending",
+      "depends_on": [],
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "2",
+      "task": "Search for key AI research papers and technical breakthroughs from the last 14 days.",
+      "status": "pending",
+      "depends_on": [],
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "3",
+      "task": "Search for significant industry shifts and hardware news (Nvidia, TPU, etc.) from the last 14 days.",
+      "status": "pending",
+      "depends_on": [],
+      "result": null,
+      "error": null
+    },
+    {
+      "id": "4",
+      "task": "Filter and synthesize findings into the requested categorized format, removing hype.",
+      "status": "pending",
+      "depends_on": [],
+      "result": null,
+      "error": null
+    }
+  ],
+  "created_at": "2026-06-17T01:00:39.013760+00:00",
+  "updated_at": "2026-06-17T01:00:39.013800+00:00",
+  "replan_log": []
+}

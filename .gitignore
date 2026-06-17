@@ -1,0 +1,66 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+WORKSPACE/.cache/
+
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+obsidian/
+.obsidian/
+.Finance/
+output/
+
+
+
+# ANSYS / Simulation files
+# Based on the directory 'ansys_files/' and typical simulation outputs
+ansys_files/
+*.cas
+*.dat
+*.cdat
+*.log
+*.out
+*.rst
+*.res
+*.tmp
+
+# Logs and Temporary outputs
+*.log
+predict_log.md
+predict_outputs.md
+model-analysis_outputs.md
+manifold-extraction_outputs.md
+
+# IDE / Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# files
+USER.md
+MEMORY.md

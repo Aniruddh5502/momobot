@@ -1,0 +1,277 @@
+{"timestamp": "2026-05-14T13:47:59.815169+00:00", "event": "init_task", "details": {"goal": "Test task_state tools with a mock sensor calibration deployment", "step_count": 5}}
+{"timestamp": "2026-05-14T13:48:39.776181+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-14T13:48:39.796503+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-14T14:11:28.001441+00:00", "event": "init_task", "details": {"goal": "Demo task_state lifecycle", "step_count": 5}}
+{"timestamp": "2026-05-14T14:11:31.648156+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-14T14:11:31.649081+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-14T14:12:58.903968+00:00", "event": "state_cleared", "details": {}}
+{"timestamp": "2026-05-14T17:45:45.078604+00:00", "event": "init_task", "details": {"goal": "Research and design the integration of prompt_eval_count from Ollama LLM responses into the existing LangGraph architecture in output/momobot/main.py.", "step_count": 5}}
+{"timestamp": "2026-05-14T17:45:53.564131+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-14T17:46:05.423035+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-14T17:46:09.337991+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-14T17:46:12.946380+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-14T18:33:27.820571+00:00", "event": "init_task", "details": {"goal": "Implement functional context compaction in main.py to prevent token bloat.", "step_count": 3}}
+{"timestamp": "2026-05-14T18:34:03.325610+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-14T18:34:03.325526+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-14T18:34:03.328438+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-14T18:51:14.319584+00:00", "event": "init_task", "details": {"goal": "Critical architectural analysis of context compaction in output/momobot/main.py", "step_count": 6}}
+{"timestamp": "2026-05-14T18:51:30.090603+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-14T18:51:34.524966+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-14T18:51:46.924550+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-14T18:51:51.472508+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-14T18:53:04.950865+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-14T18:53:20.704133+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-05-14T18:54:06.564934+00:00", "event": "init_task", "details": {"goal": "Conduct a detailed architectural review of context compaction in main.py and provide an actionable report with fixes.", "step_count": 6}}
+{"timestamp": "2026-05-14T18:54:10.343695+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-14T18:54:15.382123+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-14T18:54:20.930733+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-14T18:54:25.607092+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-14T18:54:42.827457+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-14T23:22:23.657201+00:00", "event": "init_task", "details": {"goal": "Create three random text files in 'output/', combine them into 'combined_test.txt', and report results.", "step_count": 8}}
+{"timestamp": "2026-05-14T23:22:30.129726+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-14T23:22:32.662517+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-14T23:22:35.982827+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-14T23:22:38.544820+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-14T23:22:46.794794+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-14T23:22:51.071420+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-05-14T23:22:54.488312+00:00", "event": "step_complete", "details": {"step_id": "7", "has_result": true}}
+{"timestamp": "2026-05-14T23:27:11.346591+00:00", "event": "init_task", "details": {"goal": "Technical Consistency Audit of Python files against obsidian/ documentation and momo.md project contracts.", "step_count": 5}}
+{"timestamp": "2026-05-14T23:27:19.115577+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-14T23:27:51.978533+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-14T23:27:54.727206+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-14T23:28:08.144240+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-14T23:28:11.099777+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-14T23:55:14.496915+00:00", "event": "init_task", "details": {"goal": "Execute the 'Skill Trigger Test' by analyzing output/tests/signal_data.csv following the CSV Processing skill standards.", "step_count": 6}}
+{"timestamp": "2026-05-14T23:55:19.000876+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-14T23:55:23.134467+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-14T23:55:39.039283+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-14T23:55:46.907226+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-14T23:55:48.460487+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-15T00:03:00.497490+00:00", "event": "init_task", "details": {"goal": "Implement a file monitoring script in output/tests/monitor_files.py that moves new .txt files to a backup folder using os.system().", "step_count": 7}}
+{"timestamp": "2026-05-15T00:03:04.357482+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-15T00:03:10.724397+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-15T00:03:31.759980+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-15T00:03:37.507637+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-17T15:31:24.690605+00:00", "event": "state_cleared", "details": {}}
+{"timestamp": "2026-05-18T13:20:18.869906+00:00", "event": "init_task", "details": {"goal": "Develop a comprehensive learning and practice module for the 'Two Pointers' pattern.", "step_count": 5}}
+{"timestamp": "2026-05-18T13:20:56.312254+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-18T13:21:02.539917+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-18T13:21:42.806866+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-18T13:22:18.202929+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-18T13:22:33.773169+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-18T18:18:48.488416+00:00", "event": "init_task", "details": {"goal": "Research 'Emotion Geometry', 'Activation Steering', and 'Internal State Stabilization' for improving SLM reliability in agentic workflows.", "step_count": 6}}
+{"timestamp": "2026-05-20T17:02:02.842937+00:00", "event": "init_task", "details": {"goal": "Research British American Tobacco (BAT) operations in Bangladesh and produce a comprehensive report in Markdown format.", "step_count": 9}}
+{"timestamp": "2026-05-20T17:04:42.639731+00:00", "event": "init_task", "details": {"goal": "Create the research report for BAT Bangladesh based on collected data.", "step_count": 4}}
+{"timestamp": "2026-05-20T17:06:47.454372+00:00", "event": "step_complete", "details": {"step_id": "s1", "has_result": true}}
+{"timestamp": "2026-05-20T17:06:49.287174+00:00", "event": "step_complete", "details": {"step_id": "s2", "has_result": true}}
+{"timestamp": "2026-05-20T17:07:03.146088+00:00", "event": "step_complete", "details": {"step_id": "s3", "has_result": true}}
+{"timestamp": "2026-05-20T17:07:05.436830+00:00", "event": "step_complete", "details": {"step_id": "s4", "has_result": true}}
+{"timestamp": "2026-05-20T17:09:51.119668+00:00", "event": "init_task", "details": {"goal": "Research the working culture of BAT Bangladesh and create a benchmark analysis for a BUET graduate with combined Mechanical and Software Engineering skills.", "step_count": 7}}
+{"timestamp": "2026-05-20T17:11:56.266103+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-20T17:11:56.292210+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-20T17:11:56.297971+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-20T17:11:56.302173+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-21T02:21:47.707992+00:00", "event": "state_cleared", "details": {}}
+{"timestamp": "2026-05-21T04:52:50.468033+00:00", "event": "init_task", "details": {"goal": "Comprehensive research on redundant software and fault-tolerant systems design for high-radiation environments.", "step_count": 8}}
+{"timestamp": "2026-05-21T04:53:45.534394+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-21T04:53:45.568220+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-21T04:53:45.570312+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-21T04:53:45.570002+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-21T05:18:42.825050+00:00", "event": "init_task", "details": {"goal": "Research redundant software and fault-tolerant system design for high-radiation environments, focusing on the software/firmware layer.", "step_count": 8}}
+{"timestamp": "2026-05-21T05:19:15.878451+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-21T05:19:15.912283+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-05-21T05:19:15.908129+00:00", "event": "step_complete", "details": {"step_id": "8", "has_result": true}}
+{"timestamp": "2026-05-21T05:19:15.944409+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-21T05:19:15.988572+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-21T05:26:35.487586+00:00", "event": "init_task", "details": {"goal": "Conduct deep research on redundant software and fault-tolerant system design for high-radiation environments, focusing on software-level mitigations and architecture patterns.", "step_count": 5}}
+{"timestamp": "2026-05-21T05:27:02.698242+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-21T05:27:05.930892+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-21T05:27:09.875626+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-21T05:27:14.075147+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-21T05:27:49.186072+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-21T05:35:00.632792+00:00", "event": "init_task", "details": {"goal": "Conduct deep research on redundant software and fault-tolerant system design for high-radiation environments, focusing on software-level mitigations and architecture patterns.", "step_count": 5}}
+{"timestamp": "2026-05-21T05:35:15.983089+00:00", "event": "init_task", "details": {"goal": "Deep-dive research on redundant software and fault-tolerant system design for high-radiation environments (Space, Nuclear, High-Energy Physics).", "step_count": 7}}
+{"timestamp": "2026-05-21T05:35:37.818385+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-21T05:35:41.013745+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-21T05:35:45.641324+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-21T05:35:51.482977+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-21T05:35:56.494718+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-21T05:36:03.222068+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-05-21T05:40:50.909095+00:00", "event": "init_task", "details": {"goal": "Research redundant software and fault-tolerant system design for high-radiation environments.", "step_count": 7}}
+{"timestamp": "2026-05-21T05:41:04.850764+00:00", "event": "init_task", "details": {"goal": "Perform deep research on redundant software and fault-tolerant system design for high-radiation environments, focusing on the software layer across sectors (NASA, ESA, SpaceX, CERN, Nuclear).", "step_count": 6}}
+{"timestamp": "2026-05-21T05:44:19.655767+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-21T05:44:25.011896+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-21T05:44:28.780660+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-21T05:44:32.805547+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-21T05:44:39.684866+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-21T05:53:05.966626+00:00", "event": "init_task", "details": {"goal": "Produce a comprehensive technical report on radiation-tolerant software systems design and industry standards.", "step_count": 6}}
+{"timestamp": "2026-05-21T05:56:59.658075+00:00", "event": "init_task", "details": {"goal": "Comprehensive research and technical report on radiation-tolerant software systems design and industry standards.", "step_count": 5}}
+{"timestamp": "2026-05-21T05:58:12.996352+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-21T05:58:18.820257+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-21T05:58:34.595806+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-21T05:58:40.695911+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-22T12:05:09.469299+00:00", "event": "init_task", "details": {"goal": "Perform a comparative research analysis on the integrated ADCs of ESP32, Arduino Nano (ATmega328P), and STM32 F-series for a high-speed synchronous demodulation setup.", "step_count": 5}}
+{"timestamp": "2026-05-22T12:05:51.809879+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-22T12:05:54.128089+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-22T12:05:56.060273+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-22T12:06:02.520138+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-22T12:06:06.067305+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-22T14:49:51.955929+00:00", "event": "init_task", "details": {"goal": "Research the latest Qwen iteration (Qwen 2.5 or newer) release details, open-source status, and performance benchmarks compared to Claude 3.5, GPT-4o, and Llama 3.1/3.2.", "step_count": 5}}
+{"timestamp": "2026-05-22T14:51:27.105372+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-22T14:51:29.469763+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-22T14:52:53.905493+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-22T14:53:00.411033+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-22T14:53:09.174571+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-23T11:43:21.093735+00:00", "event": "init_task", "details": {"goal": "Deep research on SINDy for Digital Twin of Macro Flexures and creation of a comprehensive implementation plan.", "step_count": 6}}
+{"timestamp": "2026-05-23T11:57:47.863096+00:00", "event": "init_task", "details": {"goal": "Conduct deep research on SINDy for creating a Digital Twin for Macro Flexures, focusing on parametric mapping, library construction, STLSQ, and official Brunton sources.", "step_count": 5}}
+{"timestamp": "2026-05-23T11:58:23.066415+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-23T11:58:23.073220+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-23T11:58:23.115342+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-23T11:58:23.127957+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-23T11:58:23.070570+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-25T18:12:42.507798+00:00", "event": "state_cleared", "details": {}}
+{"timestamp": "2026-05-25T18:19:48.485940+00:00", "event": "init_task", "details": {"goal": "Document test_2 and research radiation-hardened firmware redundancy/fault recovery.", "step_count": 3}}
+{"timestamp": "2026-05-25T18:19:48.517405+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-25T18:19:54.132151+00:00", "event": "init_task", "details": {"goal": "Research radiation-induced faults (SEU, MEU) and design a fault-tolerant firmware recovery architecture for an ESP32 system with three OTA slots.", "step_count": 6}}
+{"timestamp": "2026-05-25T18:20:13.042422+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-25T18:20:23.489852+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-25T18:20:26.968096+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-25T18:20:29.949933+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-25T18:20:35.372992+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-25T21:38:01.456727+00:00", "event": "init_task", "details": {"goal": "Research MCUBoot's Relocation mechanism and analyze its application to the 'test_2' partition-swapping architecture.", "step_count": 6}}
+{"timestamp": "2026-05-25T21:38:43.784331+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-25T21:38:55.047746+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-25T21:38:57.972534+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-25T21:39:00.203863+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-25T21:39:03.011943+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-25T21:39:05.661219+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-05-26T19:41:02.101067+00:00", "event": "init_task", "details": {"goal": "Research design patterns and technical implementations of high-engagement minimalist professional portfolios to provide actionable takeaways for Ani's portfolio.", "step_count": 6}}
+{"timestamp": "2026-05-26T19:42:30.273542+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-26T19:42:30.274477+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-26T19:42:30.282668+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-05-26T19:42:30.285346+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-26T19:42:30.273666+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-28T16:31:30.435696+00:00", "event": "init_task", "details": {"goal": "Research and provide actionable UX and presentation recommendations for a Deep Tech/Embedded Systems portfolio project focusing on fault tolerance for Aerospace/Defense recruiters.", "step_count": 5}}
+{"timestamp": "2026-05-28T16:31:47.621385+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-28T16:31:47.707054+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-28T16:31:47.709318+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-28T16:31:47.702968+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-28T16:31:47.704222+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-28T18:18:23.884616+00:00", "event": "init_task", "details": {"goal": "Comprehensive research on Manifold Learning and its application/contrast within the context of the user's thesis.", "step_count": 6}}
+{"timestamp": "2026-05-28T19:12:36.827751+00:00", "event": "init_task", "details": {"goal": "Perform a comparative analysis of a technical profile (MechEng + Computational Science/AI) against the high-tier employment and academic landscape for engineering graduates in Bangladesh.", "step_count": 6}}
+{"timestamp": "2026-05-28T19:12:43.053717+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-28T19:12:49.535334+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-28T19:12:53.823105+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-28T19:12:57.487270+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-28T19:13:02.702238+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-28T19:13:06.142326+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-05-28T19:20:08.222374+00:00", "event": "init_task", "details": {"goal": "Perform a comprehensive career-tier comparative analysis of the user's technical profile.", "step_count": 5}}
+{"timestamp": "2026-05-28T19:20:11.525642+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-28T19:20:23.240505+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-28T19:20:45.662819+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-28T19:20:52.391709+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-28T19:21:10.367803+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-28T19:38:27.632741+00:00", "event": "init_task", "details": {"goal": "Market research analysis for 'Physical Intelligence Architect' salary and compensation benchmarks.", "step_count": 6}}
+{"timestamp": "2026-05-28T19:38:56.016353+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-28T19:38:56.055257+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-05-28T19:38:56.055384+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-05-28T19:38:56.067451+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-05-30T19:59:04.718911+00:00", "event": "init_task", "details": {"goal": "Research industry practices for surrogate models in engineering/space exploration and compare with thesis_02 implementation.", "step_count": 7}}
+{"timestamp": "2026-05-30T20:57:14.168374+00:00", "event": "init_task", "details": {"goal": "Analyze the industry usability level of the ensemble model's precision metrics for engineering and aerospace surrogate models.", "step_count": 5}}
+{"timestamp": "2026-05-30T20:57:47.801337+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-05-30T20:57:50.183008+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-05-30T20:57:53.568845+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-05-30T20:58:02.242055+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-02T15:35:42.139903+00:00", "event": "init_task", "details": {"goal": "Deep-dive research on technical capabilities (Surrogate Modeling, UQ, Differentiable Programming, Manifold Learning) and their demand in Graduate Studies and Industry R&D (Aerospace, Defense, Automotive, Robotics).", "step_count": 7}}
+{"timestamp": "2026-06-02T15:36:10.454974+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-06-02T15:36:10.467989+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-02T15:36:10.475826+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-03T20:38:49.204349+00:00", "event": "init_task", "details": {"goal": "Research the most searched products in Bangladesh on Google and deliver a comprehensive report.", "step_count": 6}}
+{"timestamp": "2026-06-03T20:40:12.768643+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-03T20:40:12.771999+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-03T20:40:12.770734+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-03T20:46:35.914359+00:00", "event": "init_task", "details": {"goal": "Develop a comprehensive market entry strategic playbook for the Bangladeshi e-commerce market focusing on Smartphones, Skincare, Footwear, and Ethnic Wear.", "step_count": 6}}
+{"timestamp": "2026-06-03T20:46:56.672327+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-03T20:47:00.670541+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-03T20:47:03.773119+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-03T20:47:15.286602+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-03T20:47:17.735713+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-03T20:47:19.355579+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-06-03T21:00:37.069951+00:00", "event": "init_task", "details": {"goal": "Analyze the skincare market in Bangladesh, comparing Dhaka vs. Outside Dhaka, covering search trends, market entry, resource requirements, platform rankings, and customer spending patterns.", "step_count": 7}}
+{"timestamp": "2026-06-03T21:02:03.598180+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-03T21:02:23.643793+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-03T21:02:34.367995+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-03T21:02:49.297312+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-03T21:03:02.380098+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-03T21:03:08.247890+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-06-05T10:31:58.640404+00:00", "event": "init_task", "details": {"goal": "Develop a web-based task manager application.", "step_count": 7}}
+{"timestamp": "2026-06-05T10:35:14.742890+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-05T10:35:14.783895+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-05T10:35:14.784039+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-05T10:35:14.783996+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-05T10:35:14.810085+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-05T10:35:14.822420+00:00", "event": "step_complete", "details": {"step_id": "7", "has_result": true}}
+{"timestamp": "2026-06-06T21:36:58.310138+00:00", "event": "init_task", "details": {"goal": "Synthesize thesis writing rules from 16 markdown files in 'output/thesis_02/Writing/rules_ocr/' into a structured summary.", "step_count": 4}}
+{"timestamp": "2026-06-06T21:37:00.450944+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-06T21:37:30.121342+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-06T21:37:32.264791+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-06T21:37:33.404046+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-06T22:57:07.171948+00:00", "event": "init_task", "details": {"goal": "Synthesize 16 markdown files from 'output/thesis_02/Writing/rules_ocr/' into a comprehensive 'Thesis Rulebook' summary.", "step_count": 3}}
+{"timestamp": "2026-06-06T22:59:36.984775+00:00", "event": "init_task", "details": {"goal": "Analyze codebase and results in 'output/thesis_02/' to provide a technical description of architecture and scientific results.", "step_count": 5}}
+{"timestamp": "2026-06-06T22:59:40.501324+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-06T23:04:28.429073+00:00", "event": "init_task", "details": {"goal": "Analyze LaTeX files in 'output/thesis_02/Writing/' against the Thesis Rulebook guidelines.", "step_count": 4}}
+{"timestamp": "2026-06-06T23:05:24.701780+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-06T23:05:29.563351+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-06T23:06:32.258072+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-07T18:44:34.157427+00:00", "event": "init_task", "details": {"goal": "Create the first two slides for the thesis presentation in 'output/thesis_02/Writing/slides/presentation.pptx' using python-pptx.", "step_count": 4}}
+{"timestamp": "2026-06-07T18:44:55.904574+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-07T18:45:03.123770+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-07T18:45:06.126530+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-07T18:45:08.793094+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-07T18:47:52.498381+00:00", "event": "init_task", "details": {"goal": "Update 'output/thesis_02/Writing/slides/presentation.pptx' by adding Slide 3 (Problem Definition) and Slide 4 (Research Objectives) based on 'main.tex' and the requested design rules.", "step_count": 4}}
+{"timestamp": "2026-06-07T18:48:50.310510+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-07T18:48:50.333001+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-07T18:48:50.335274+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-07T18:52:01.188940+00:00", "event": "init_task", "details": {"goal": "Append Slide 3 (Problem Definition) and Slide 4 (Research Objectives) to 'output/thesis_02/Writing/slides/presentation.pptx' without overwriting existing slides.", "step_count": 4}}
+{"timestamp": "2026-06-07T18:52:22.604839+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-07T18:52:24.664229+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-07T18:52:25.961225+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-07T19:46:38.769117+00:00", "event": "init_task", "details": {"goal": "Append Slide 5 and Slide 6 to 'output/thesis_02/Writing/slides/presentation.pptx' based on the provided methodology content.", "step_count": 4}}
+{"timestamp": "2026-06-07T19:47:28.263735+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-07T19:47:42.887863+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-07T19:48:31.810967+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-07T19:48:37.688671+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-07T19:54:15.070160+00:00", "event": "init_task", "details": {"goal": "Append slides 7-12 to 'output/thesis_02/Writing/slides/presentation.pptx' using python-pptx.", "step_count": 4}}
+{"timestamp": "2026-06-07T19:55:08.278574+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-07T19:55:24.408825+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-07T19:55:27.979888+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-10T02:45:41.886414+00:00", "event": "init_task", "details": {"goal": "Identify and categorize MNCs in Bangladesh matching Ani's Mechanical Engineering, Simulation, and Programming profile.", "step_count": 4}}
+{"timestamp": "2026-06-10T02:46:00.233872+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-10T02:46:03.512493+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-10T02:46:21.595407+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-10T03:28:42.963345+00:00", "event": "init_task", "details": {"goal": "Develop a rigorous, evidence-based professional brand for Ani based on a deep-dive audit of his work.", "step_count": 6}}
+{"timestamp": "2026-06-10T03:31:39.659494+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-10T03:31:39.661859+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-10T03:31:44.447701+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-10T03:31:48.478645+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-10T03:31:58.413208+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-11T19:40:05.019016+00:00", "event": "state_cleared", "details": {}}
+{"timestamp": "2026-06-15T13:19:25.736617+00:00", "event": "init_task", "details": {"goal": "Research Google's recent releases on Diffusion Language Models (Diffusion-LM) and analyze their potential integration into an autonomous agent system.", "step_count": 6}}
+{"timestamp": "2026-06-15T13:24:00.256913+00:00", "event": "init_task", "details": {"goal": "Research Google's recent releases on Diffusion Language Models (Diffusion-LM) and synthesize technical insights for a systems engineer.", "step_count": 6}}
+{"timestamp": "2026-06-15T17:10:10.559235+00:00", "event": "init_task", "details": {"goal": "Research top 10 highest-funded research sectors and specific areas in the USA relevant to a systems/mechanical engineer with an ML background, including professor profiles and a cold email template.", "step_count": 6}}
+{"timestamp": "2026-06-15T17:12:56.091326+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-15T17:17:23.298225+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-15T17:19:11.586276+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-15T17:19:15.781752+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-15T17:19:23.277326+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-06-16T17:19:29.550560+00:00", "event": "init_task", "details": {"goal": "Research and document system prompts for Claude 3.5 Sonnet, Claude 3 Opus, and latest Claude iterations.", "step_count": 4}}
+{"timestamp": "2026-06-16T17:22:26.468793+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-16T17:24:36.850995+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-16T17:25:00.311899+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-16T17:25:24.359690+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-16T17:29:42.541783+00:00", "event": "init_task", "details": {"goal": "Find and document the most comprehensive system prompt for Claude Opus 4.8 or the latest Opus iteration.", "step_count": 6}}
+{"timestamp": "2026-06-16T17:41:15.252261+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-16T17:41:28.952088+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-16T17:41:29.037227+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-16T17:41:29.074902+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-17T01:00:39.133882+00:00", "event": "init_task", "details": {"goal": "Summarize significant AI news from the last 7-14 days, categorized by Models, Research, and Industry/Hardware.", "step_count": 4}}
