@@ -298,8 +298,6 @@ tool to repair the files.
 - This tool is to be used for .md, .txt, .py, .cpp, any other code files.
 `</str_replace_tool>`
 `</file_editing>`
-
-
 `</tool_use>`
 
 

@@ -275,3 +275,74 @@
 {"timestamp": "2026-06-16T17:41:29.037227+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
 {"timestamp": "2026-06-16T17:41:29.074902+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
 {"timestamp": "2026-06-17T01:00:39.133882+00:00", "event": "init_task", "details": {"goal": "Summarize significant AI news from the last 7-14 days, categorized by Models, Research, and Industry/Hardware.", "step_count": 4}}
+{"timestamp": "2026-06-17T03:49:00.666985+00:00", "event": "init_task", "details": {"goal": "Analyze Momobot project architecture and assess its professional engineering caliber for a technical recruiter/senior engineer perspective.", "step_count": 4}}
+{"timestamp": "2026-06-17T03:49:19.403384+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-17T03:49:23.196302+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-17T03:49:27.000951+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-17T03:53:37.610506+00:00", "event": "init_task", "details": {"goal": "Research Anthropic Fellowship requirements and perform a gap analysis against Ani's profile.", "step_count": 6}}
+{"timestamp": "2026-06-17T03:54:25.923500+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-17T03:54:36.799687+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-17T03:55:15.598494+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-17T03:55:31.539941+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-17T03:55:38.952790+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-17T03:55:46.358397+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-06-17T12:18:03.145567+00:00", "event": "init_task", "details": {"goal": "Extract and analyze detailed information about Ani's projects, skills, and professional background from provided URLs to identify updates and new achievements.", "step_count": 6}}
+{"timestamp": "2026-06-17T12:19:26.201708+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-17T12:19:35.337535+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-17T12:19:44.044691+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-17T12:19:52.658202+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-17T12:20:10.764566+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-17T12:23:19.848449+00:00", "event": "init_task", "details": {"goal": "Identify and research multidisciplinary job opportunities for Ani bridging Mechanical Engineering, Agentic AI, and Reliability Engineering.", "step_count": 4}}
+{"timestamp": "2026-06-17T12:23:45.676402+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-17T12:26:15.209908+00:00", "event": "init_task", "details": {"goal": "Find specific, currently open job roles matching Ani's multidisciplinary profile (ME + Agentic AI + Reliability Engineering) in Defense, Aerospace, and Advanced Manufacturing.", "step_count": 6}}
+{"timestamp": "2026-06-17T12:27:09.998559+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-17T12:27:09.998976+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-17T12:27:10.198634+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-17T12:27:18.442606+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-17T12:27:18.465329+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-06-17T17:55:25.961032+00:00", "event": "init_task", "details": {"goal": "Extract comprehensive summary of Ani's projects, skills, and achievements from portfolio and GitHub.", "step_count": 6}}
+{"timestamp": "2026-06-17T17:56:40.555354+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-17T17:56:49.194378+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-17T17:57:07.834763+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-17T17:57:23.365472+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-17T17:57:39.976073+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-17T18:03:59.995281+00:00", "event": "init_task", "details": {"goal": "Extract skills and project details from portfolio pages and GitHub profile, and verify repository alignment.", "step_count": 7}}
+{"timestamp": "2026-06-17T18:04:16.602483+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-17T18:04:28.051229+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-17T18:04:45.771210+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-17T18:04:57.341147+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-17T18:05:18.079347+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-17T18:05:20.735029+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-06-17T18:05:25.286015+00:00", "event": "step_complete", "details": {"step_id": "7", "has_result": true}}
+{"timestamp": "2026-06-17T18:08:51.645608+00:00", "event": "init_task", "details": {"goal": "Research job roles, industries, and companies aligning with Ani's unique portfolio (AI Agents, Physics-ML, Fault-Tolerant Embedded Systems).", "step_count": 6}}
+{"timestamp": "2026-06-17T18:09:12.253878+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-17T18:09:16.300075+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-17T18:09:16.322613+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-17T18:09:16.345161+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-17T18:09:31.810774+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-17T18:09:39.591755+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-18T08:03:55.545982+00:00", "event": "init_task", "details": {"goal": "Perform a sanity check of subagent capabilities by creating and deleting a test file.", "step_count": 4}}
+{"timestamp": "2026-06-18T08:03:59.951183+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-18T08:04:03.405809+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-18T08:04:06.664752+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-18T08:04:10.938187+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-18T08:05:59.150822+00:00", "event": "init_task", "details": {"goal": "Sanity check subagent capabilities by creating and deleting a test file.", "step_count": 4}}
+{"timestamp": "2026-06-18T08:06:08.680991+00:00", "event": "init_task", "details": {"goal": "Sanity check of operational capabilities: create, write, read, and delete a test directory and file.", "step_count": 5}}
+{"timestamp": "2026-06-18T08:06:13.146155+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-18T08:06:21.262855+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-18T08:06:27.377024+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-18T08:06:32.271966+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-18T08:06:36.354001+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-18T08:06:48.682685+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-18T08:06:48.705105+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-18T08:06:48.727876+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-18T08:07:14.962619+00:00", "event": "init_task", "details": {"goal": "Sanity check of operational capabilities: create, write, read, and delete a test directory and file via subagent.", "step_count": 5}}
+{"timestamp": "2026-06-18T08:07:41.339712+00:00", "event": "init_task", "details": {"goal": "Perform a full filesystem sanity check by creating, reading, and deleting a test directory and file.", "step_count": 5}}
+{"timestamp": "2026-06-18T08:07:43.825818+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-18T08:07:47.115169+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-18T08:07:49.600289+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-18T08:07:52.317594+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-18T08:07:55.409131+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-18T08:08:02.134319+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-18T08:08:02.156799+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-18T08:08:02.158165+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}

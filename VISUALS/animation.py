@@ -23,7 +23,7 @@ SPINNERS = {
 """
 # Frames for different animations
 SPINNERS = {
-    "sparkle": ["✽", "✻", "∴", "✽", "✻", "∴", "·", "*"]
+    "sparkle":["✽✻", "✻✽", "✽·", "✻·", "·✽", "·✻"]
 }
 
 THINKING_VERBS = [

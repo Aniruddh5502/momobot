@@ -1,17 +1,19 @@
 import operator
-from typing import Annotated, TypedDict, Sequence
-from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, ToolMessage, SystemMessage
-from langchain_core.tools import tool
-from langgraph.graph import StateGraph, START, END
-from langgraph.prebuilt import ToolNode
-from langchain_ollama import ChatOllama
-from rich.console import Console
-from rich.markdown import Markdown
-from setup import sub_agent_sys_prompt
+from typing  				import Annotated, TypedDict, Sequence
+from langchain_core.messages 		import BaseMessage, HumanMessage, AIMessage, ToolMessage, SystemMessage
+from langchain_core.tools 		import tool
+from langgraph.graph 			import StateGraph, START, END
+from langgraph.prebuilt 		import ToolNode
+from langchain_ollama 			import ChatOllama
+from rich.console 			import Console
+from rich.markdown 			import Markdown
+from setup 				import sub_agent_sys_prompt
+from VISUALS.animation 			import ThinkingAnimation
 
 _console = Console()
 _SUB_BULLET = "[cyan]●[/cyan]"
 _SUB_NEST = "[dim]  ⎿[/dim]"
+anim      = ThinkingAnimation() 
 
 MODEL          = "gemma4:31b-cloud"
 BASE_URL       = "http://localhost:11434"
@@ -22,7 +24,9 @@ class SUBAgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], operator.add]
 
 def reasoning_node(state: SUBAgentState, llm_with_tools):
+    anim.start()
     response = llm_with_tools.invoke(list(state["messages"]))
+    anim.stop()
     return {"messages": [response]}
 
 def route_after_reasoning(state: SUBAgentState) -> str:
