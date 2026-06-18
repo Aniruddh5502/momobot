@@ -54,6 +54,7 @@ class AgentState(TypedDict):
 tools = base_tools + [subagent]
 llm   = ChatOllama(
     model       =   MODEL,
+    reasoning   =   True,
     base_url    =   BASE_URL,
     num_ctx     =   CTX_WINDOW,
     stream      =   STREAM,  
@@ -82,9 +83,13 @@ def input_node(state:AgentState)-> AgentState:
     
     # Previous runs response
     if state['messages']:
-        response = state['messages'][-1]
-        rs = Markdown(response.content)
-        # print_smart(rs)
+        response    = state['messages'][-1]
+        thinking    = Markdown(response.additional_kwargs.get('reasoning_content'))
+        rs          = Markdown(response.content)
+
+        console.print("\n\n✻ ""[dim]Thinking...[/dim]")
+        console.print(thinking, style='dim')
+        console.print("[dim]Thinking...\n\n[/dim]")
         console.print(rs)
         
         console.print("")

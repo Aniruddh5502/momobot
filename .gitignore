@@ -25,7 +25,6 @@ WORKSPACE/.cache/
 .venv/
 venv/
 ENV/
-obsidian/
 .obsidian/
 .Finance/
 output/
