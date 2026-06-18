@@ -29,7 +29,8 @@ obsidian/
 .obsidian/
 .Finance/
 output/
-
+obsidian/
+Finance/
 
 
 # ANSYS / Simulation files
@@ -64,3 +65,4 @@ Thumbs.db
 # files
 USER.md
 MEMORY.md
+claude_system_prompts.md

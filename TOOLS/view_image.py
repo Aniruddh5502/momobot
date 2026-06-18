@@ -14,8 +14,8 @@ console = Console()
 
 # ── style helpers ──────────────────────────────────────────────────────
 _CORAL   = "#FF5F00"
-_BULLET  = f"[{_CORAL}]⬤[/{_CORAL}]"
-_NEST    = "[dim]  ⎿[/dim]"
+_BULLET  = f"✻ "
+_NEST    = "[dim]   └─[/dim]"
 # Formats that go through Playwright (rendered in a browser first)
 BROWSER_EXTENSIONS = {".svg", ".html", ".htm"}
 

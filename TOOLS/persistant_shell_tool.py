@@ -30,8 +30,8 @@ workspace = WORKSPACE_DIR
 # ======================================================================|
 
 _console        = Console()
-_BULLET         = "[green4]✽ [/green4]"
-_NEST           = "[dim]  ⎿[/dim]"
+_BULLET         = "✽ "
+_NEST    = "[dim]   └─[/dim]"
 
 DEFAULT_TIMEOUT = 120          # seconds — agent calls that hang are worse than failing fast
 MAX_OUTPUT_CHARS = 4000       # total stdout+stderr budget returned to the LLM

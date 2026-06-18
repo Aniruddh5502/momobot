@@ -7,8 +7,8 @@ from setup import WORKSPACE_DIR
 import re
 
 _console = Console()
-_BULLET  = "[green3]●[/green3]"
-_NEST    = "[dim]  ⎿[/dim]"
+_BULLET  = "✻ "
+_NEST    = "[dim]   └─[/dim]"
 
 
 @tool

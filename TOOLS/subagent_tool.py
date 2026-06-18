@@ -11,8 +11,8 @@ from setup 				import sub_agent_sys_prompt
 from VISUALS.animation 			import ThinkingAnimation
 
 _console = Console()
-_SUB_BULLET = "[cyan]●[/cyan]"
-_SUB_NEST = "[dim]  ⎿[/dim]"
+_SUB_BULLET = "[cyan]✻ [/cyan]"
+_NEST    = "[dim]   └─[/dim]"
 anim      = ThinkingAnimation() 
 
 MODEL          = "gemma4:31b-cloud"

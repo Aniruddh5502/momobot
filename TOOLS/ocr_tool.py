@@ -9,8 +9,8 @@ from setup import WORKSPACE_DIR
 
 _console = Console()
 _CORAL  = "#FF5F00"
-_BULLET = "[green3]●[/green3]"
-_NEST   = "[dim]  ⎿[/dim]"
+_BULLET = "✻ "
+_NEST    = "[dim]   └─[/dim]"
 
 
 def ocr_pdf(file_path: str, pages: list[int] | None = None) -> str:

@@ -1,14 +1,18 @@
 from langchain_core.tools import tool
+import os
 import time
 import re
 from rich.console import Console
 from setup import MEMORY_DIR
 
 _console = Console()
-_BULLET  = "[green4]●[/green4]"
-_NEST    = "[dim]  ⎿[/dim]"
+_BULLET  = "✻ "
+_NEST    = "[dim]   └─[/dim]"
+
 
 MAP_FILE = MEMORY_DIR / "MEMORY.md"
+if not MAP_FILE.exists():
+    MAP_FILE.write_text("`<memory_of_user>` \n\n`</memory_of_user>`")
 
 # ============================================================================
 # HELPERS

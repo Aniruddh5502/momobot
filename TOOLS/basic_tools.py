@@ -16,8 +16,8 @@ from setup import terracota, green_oli, cyan_blue, pink_purp, WORKSPACE_DIR
 _console = Console()
 _CORAL   = "#FF5F00"
 # _BULLET  = f"[{_CORAL}]⬤[/{_CORAL}]"
-_BULLET      =   "[grey66]✽ [/grey66]"
-_NEST    = "[dim]  ⎿[/dim]"
+_BULLET      =   "✻ "
+_NEST    = "[dim]   └─[/dim]"
 
 
 @tool
@@ -31,20 +31,25 @@ def read_file(file_path: str) -> str:
 
     if not full_path.exists():
         _console.print(f"{_BULLET} [bold red]Error[/bold red] [dim]- {file_path} not found[/dim]")
+        _console.print(" ")
         return f"Error: File not found - {file_path}"
 
     if not full_path.is_file():
         _console.print(f"{_BULLET} [bold red]Error[/bold red]\n{_NEST} {file_path} is not a file")
+        _console.print(" ")
         return f"Error: {file_path} is not a file"
 
     try:
         with open(full_path, 'r', encoding='utf-8') as f:
             content = f.read()
-        _console.print(f"{_BULLET} [bold]Reading [/bold] [dim]{file_path}[/dim] [dim green]✓ DONE[/dim green]")
+        _console.print(f"{_BULLET} [bold]Reading [/bold] [dim]{file_path}[/dim]")
+        _console.print(" ")
         return content
     except Exception as e:
         _console.print(f"{_BULLET} [bold red]Error[/bold red]\n{_NEST} {str(e)}")
+        _console.print(" ")
         return f"Error reading file: {str(e)}"
+        
 
 
 @tool
@@ -161,6 +166,7 @@ def list_directory(dir_path: str = "") -> str:
 
     except Exception as e:
         _console.print(f"{_BULLET} [bold red]Error[/bold red]\n{_NEST} {str(e)}")
+        _console.print()
         return f"Error listing directory: {str(e)}"
 
 @tool
@@ -180,12 +186,14 @@ def write_file(file_path: str, content: str) -> str:
             f.write(content)
         
         _console.print(f"{_BULLET} [bold]Writing {file_path}[/bold] [green]DONE[/green]")
+        _console.print(" ")
         return f"✓ {file_path} written successfully."
 
     except ValueError:
         return f"Error writing {file_path}: path escapes workspace ({WORKSPACE_DIR})"
     except Exception as e:
         _console.print(f"{_BULLET} [bold red]Error:[/bold red] {str(e)}")
+        _console.print(" ")
         return f"Error writing {file_path}: {str(e)}"
 
 

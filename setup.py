@@ -3,7 +3,6 @@
 # ======================================================================||
 from pathlib import Path
 from datetime import datetime
-from termcolor import colored
 from rich.console import Console
 
 console = Console()
@@ -357,15 +356,25 @@ Your knowledge cutoff is January 2025. For any information, events, or technical
 You are Momobot. 
     """
     sub_sys_file.write_text(default_sub_sys_prmpt, encoding='utf-8')
-    console.print("[green]● [/green]","[dim]Subagent's system prompt created.[/dim]")
+    console.print("[green]✻ [/green]","[dim]Subagent's system prompt created.[/dim]")
 
+
+if not memory_file.exists():
+    default_memory = """
+## identity
+timestamp: 1749513600
+Full name: Update this section with users memories and update this if nothing other than this entry exists. My first job is to collect information about user and add here and other entries as seperate memory entries
+    """
+    memory_file.write_text(default_memory, encoding='utf-8')
+    console.print("[green]✻ [/green]","[dim]Memory File created.[/dim]")
 # ======================================================================
 # FOURTH: Verify all files exist, then read them safely
 # ======================================================================
 required_files = {
     'soul_file': soul_file,
     'user_file': user_file,
-    'skills_file': skills_file
+    'skills_file': skills_file,
+    'memory_file':memory_file
 }
 
 missing = [name for name, path in required_files.items() if not path.exists()]
@@ -381,7 +390,7 @@ user = user_file.read_text(encoding='utf-8')
 skill = skills_file.read_text(encoding='utf-8')
 memory = memory_file.read_text(encoding='utf-8')
 
-system_prompt = soul + "\n\n" + user + "\n\n" + skill + "\n\n<memory>\n" + memory + "\n</memory>"
+system_prompt = soul + "\n\n" + user + "\n\n" + skill + "\n\n`<memory_of_user>`\n" + memory + "\n`</memory_of_user>`"
 
 # For subagent its system prompt
 if sub_sys_file.exists():
