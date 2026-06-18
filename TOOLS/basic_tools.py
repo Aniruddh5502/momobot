@@ -16,7 +16,7 @@ from setup import terracota, green_oli, cyan_blue, pink_purp, WORKSPACE_DIR
 _console = Console()
 _CORAL   = "#FF5F00"
 # _BULLET  = f"[{_CORAL}]⬤[/{_CORAL}]"
-_BULLET      =   "[grey66]●[/grey66]"
+_BULLET      =   "[grey66]✽ [/grey66]"
 _NEST    = "[dim]  ⎿[/dim]"
 
 

@@ -30,7 +30,7 @@ workspace = WORKSPACE_DIR
 # ======================================================================|
 
 _console        = Console()
-_BULLET         = "[green4]●[/green4]"
+_BULLET         = "[green4]✽ [/green4]"
 _NEST           = "[dim]  ⎿[/dim]"
 
 DEFAULT_TIMEOUT = 120          # seconds — agent calls that hang are worse than failing fast
