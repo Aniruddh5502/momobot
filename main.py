@@ -32,7 +32,8 @@ SYSTEM_PROMPT           =   system_prompt
 MODEL                   =   "gemma4:31b-cloud"
 BASE_URL                =   "http://localhost:11434"
 CTX_WINDOW              =   262144
-STREAM                  =   True
+STREAM                  =   False
+REASONING               =   False
 TOKEN_USAGE             =   0
 COMPACTION_THRESHOLD    =   100000
 RECENT_WINDOW           =   6
@@ -52,13 +53,11 @@ class AgentState(TypedDict):
 #                                  LLM SETUP                                  |
 # =============================================================================
 tools = base_tools + [subagent]
-llm   = ChatOllama(
-    model       =   MODEL,
-    reasoning   =   True,
-    base_url    =   BASE_URL,
-    num_ctx     =   CTX_WINDOW,
-    stream      =   STREAM,  
-).bind_tools(tools)
+
+llm             = ChatOllama(model=MODEL, reasoning = False, base_url = BASE_URL, num_ctx = CTX_WINDOW, stream      =   STREAM).bind_tools(tools)
+
+llm_think       = ChatOllama(model = MODEL, reasoning = True, base_url = BASE_URL, num_ctx = CTX_WINDOW, stream = STREAM).bind_tools(tools)
+
 
 def make_session():
     bindings = KeyBindings()
@@ -80,30 +79,40 @@ session = make_session()
 # =============================================================================
 # USER INPUT
 def input_node(state:AgentState)-> AgentState:
-    
+    global REASONING
     # Previous runs response
     if state['messages']:
         response    = state['messages'][-1]
-        thinking    = Markdown(response.additional_kwargs.get('reasoning_content'))
-        rs          = Markdown(response.content)
 
-        console.print("\n\n✻ ""[dim]Thinking...[/dim]")
-        console.print(thinking, style='dim')
-        console.print("[dim]Thinking...\n\n[/dim]")
+        if REASONING == True:
+            thinking    = Markdown(response.additional_kwargs.get('reasoning_content'))
+            console.print("\n\n✻ ","[dim]Thinking...[/dim]")
+            console.print(thinking, style='dim')
+            console.print("Thinking...\n\n", style='dim')
+        rs          = Markdown(response.content)
         console.print(rs)
         
         console.print("")
         console.print("[dim green]                                                                            ● TOKEN USAGES: [/dim green]", f"[dim green]{TOKEN_USAGE}[/dim green]")
 
-    
     console.rule(style='dim')
     user_input = session.prompt("❯  ").strip()
-    input = HumanMessage(content=user_input)
     console.rule(style='dim')
+
+    # ----------------------------------------------------------------------
+    # tags
+    # ----------------------------------------------------------------------
     if not user_input or user_input.lower() in {"x","c","exit","quit","end"}:
         if user_input:
             console.print("Bye...",style=green_oli)
         return {'end' :"end_loop"}
+    
+    if "/think" in user_input:
+        REASONING = True
+        user_input = user_input.replace("/think", "").strip()
+    else:
+        REASONING = False
+    input = HumanMessage(content=user_input)    
     return {'messages':input}
 
 # END or CONVERSATION
@@ -129,7 +138,11 @@ def reasoning_node(state: AgentState) -> AgentState:
 
     for attempt in range(5):
         try:
-            response = llm.invoke([System_prompt] + list(state["messages"]))
+            if REASONING == True:
+                response = llm_think.invoke([System_prompt] + list(state["messages"]))
+            else:
+                response = llm.invoke([System_prompt] + list(state["messages"]))
+            
             global TOKEN_USAGE
             TOKEN_USAGE = response.response_metadata.get("prompt_eval_count", 0)
             anim.stop()

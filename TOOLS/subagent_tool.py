@@ -27,6 +27,9 @@ def reasoning_node(state: SUBAgentState, llm_with_tools):
     anim.start()
     response = llm_with_tools.invoke(list(state["messages"]))
     anim.stop()
+    _console.print("\n✻ Subagent Thinking...",style='dim')
+    _console.print(Markdown(response.additional_kwargs.get('reasoning_content')), style = 'dim')
+    _console.print("✻ \n",style='dim')
     return {"messages": [response]}
 
 def route_after_reasoning(state: SUBAgentState) -> str:
@@ -63,11 +66,11 @@ def subagent(task: str) -> str:
     arg: Detailed breakdown of the tasks that need to be completed.
     """
     _console.print(f"\n{_SUB_BULLET} [bold cyan]Subagent spawned...[/bold cyan]")
-    _console.print(f"{_SUB_NEST} [dim]Task: {task[:200]}...[/dim]")
+    _console.print(f"{_NEST} [dim]Task: {task[:200]}...[/dim]")
 
     from TOOLS.basic_tools import base_tools
 
-    llm = ChatOllama(model=MODEL, base_url=BASE_URL, num_ctx=CTX_WINDOW)
+    llm = ChatOllama(model=MODEL,reasoning = True,  base_url=BASE_URL, num_ctx=CTX_WINDOW)
     app = build_subagent_graph(llm, base_tools)
 
     state: SUBAgentState = {

@@ -4,6 +4,14 @@ A local-first agentic AI assistant built on LangGraph and Ollama. Momobot runs e
 
 ---
 
+## useful tags
+- To turn on **Reasoning** use -   /think
+
+
+
+---
+
+
 ## Architecture Overview
 
 ```
