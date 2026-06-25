@@ -22,8 +22,8 @@ from pathlib import Path
 from datetime import datetime
 from langchain_core.tools import Tool
 from rich.console import Console
-from setup import WORKSPACE_DIR
-from setup import SCRIPT_DIR
+from momo.WORKSPACE.output.momobot.bootstrap import WORKSPACE_DIR
+from momo.WORKSPACE.output.momobot.bootstrap import SCRIPT_DIR
 workspace = WORKSPACE_DIR
 # ======================================================================|
 # CONSTANTS & CONFIG                                                    |

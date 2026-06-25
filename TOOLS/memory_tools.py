@@ -3,7 +3,7 @@ import os
 import time
 import re
 from rich.console import Console
-from setup import MEMORY_DIR
+from momo.WORKSPACE.output.momobot.bootstrap import MEMORY_DIR
 
 _console = Console()
 _BULLET  = "✻ "

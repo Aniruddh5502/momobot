@@ -5,7 +5,7 @@ import ollama
 from pdf2image import convert_from_path
 from langchain_core.tools import Tool
 from rich.console import Console
-from setup import WORKSPACE_DIR
+from momo.WORKSPACE.output.momobot.bootstrap import WORKSPACE_DIR
 
 _console = Console()
 _CORAL  = "#FF5F00"

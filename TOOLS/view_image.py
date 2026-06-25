@@ -8,7 +8,7 @@ import base64
 import io
 import ollama
 from rich.console import Console
-from setup import WORKSPACE_DIR
+from momo.WORKSPACE.output.momobot.bootstrap import WORKSPACE_DIR
 console = Console()
 
 

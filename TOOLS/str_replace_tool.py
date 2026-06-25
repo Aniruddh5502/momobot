@@ -3,7 +3,7 @@ import difflib
 from pathlib import Path
 from rich.console import Console
 from rich.markup import escape
-from setup import WORKSPACE_DIR
+from momo.WORKSPACE.output.momobot.bootstrap import WORKSPACE_DIR
 import re
 
 _console = Console()

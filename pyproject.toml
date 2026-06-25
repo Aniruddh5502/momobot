@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "momobot"
+version = "0.1.0"
+dependencies = [] # keep using requirements.txt
+
+[project.scripts]
+momobot = "main:main"
+momobot-init = "momobot_init:main"
+
+[tool.setuptools]
+py-modules = ["main", "momobot_init", "bootstrap"]
+packages = ["TOOLS", "VISUALS"]

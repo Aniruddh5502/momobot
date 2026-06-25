@@ -7,7 +7,7 @@ from langgraph.prebuilt 		import ToolNode
 from langchain_ollama 			import ChatOllama
 from rich.console 			import Console
 from rich.markdown 			import Markdown
-from setup 				import sub_agent_sys_prompt
+from momo.WORKSPACE.output.momobot.bootstrap 				import sub_agent_sys_prompt
 from VISUALS.animation 			import ThinkingAnimation
 
 _console = Console()

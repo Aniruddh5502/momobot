@@ -47,16 +47,26 @@ anim                    =   ThinkingAnimation()
 class AgentState(TypedDict):
     messages : Annotated[Sequence[BaseMessage], add_messages]
     summary  : str
-    subagent : Annotated[Sequence[BaseMessage], add_messages]
-    end      : str
 
 # =============================================================================
 #                                  LLM SETUP                                  |
 # =============================================================================
 tools = base_tools + [subagent]
 
-llm       = ChatOllama(model=MODEL, reasoning=False, base_url=BASE_URL, num_ctx=CTX_WINDOW, stream=STREAM).bind_tools(tools)
-llm_think = ChatOllama(model=MODEL, reasoning=True,  base_url=BASE_URL, num_ctx=CTX_WINDOW, stream=STREAM).bind_tools(tools)
+llm       = ChatOllama(
+    model=MODEL, 
+    reasoning=False, 
+    base_url=BASE_URL, 
+    num_ctx=CTX_WINDOW, 
+    stream=STREAM
+    ).bind_tools(tools)
+llm_think = ChatOllama(
+    model=MODEL, 
+    reasoning=True,  
+    base_url=BASE_URL, 
+    num_ctx=CTX_WINDOW, 
+    stream=STREAM
+    ).bind_tools(tools)
 
 
 def make_session():
@@ -264,7 +274,3 @@ graph.add_edge("COMPACT",   "USER_INPUT")
 
 momobot = graph.compile()
 
-if __name__ == "__main__":
-    console.print("\n" * 25)
-    console.print("[●_●]", style=terracota)
-    momobot.invoke({"messages": [], "summary": "", "end": ""})
