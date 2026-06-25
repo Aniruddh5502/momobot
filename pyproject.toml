@@ -18,6 +18,8 @@ dependencies = [
     "prompt_toolkit",
     "Pillow",
     "pdf2image",
+    "duckduckgo-search",
+    "ddgs"
 ]
 
 [project.scripts]
