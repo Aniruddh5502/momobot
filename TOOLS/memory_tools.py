@@ -1,9 +1,12 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from langchain_core.tools import tool
 import os
 import time
 import re
 from rich.console import Console
-from momo.WORKSPACE.output.momobot.bootstrap import MEMORY_DIR
+from bootstrap import MEMORY_DIR
 
 _console = Console()
 _BULLET  = "✻ "

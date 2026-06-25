@@ -1,3 +1,45 @@
+"""
+Paste this block at the very top of main.py, before any other imports.
+It re-execs main.py inside the venv if not already running from it.
+"""
+
+import sys
+import os
+import json
+from pathlib import Path
+
+def _ensure_venv():
+    config_file = Path.home() / ".momobot" / "config.json"
+    if not config_file.exists():
+        print("Momobot is not initialized. Run: momobot-init")
+        sys.exit(1)
+
+    config = json.loads(config_file.read_text())
+    venv_dir = Path(config["venv"])
+
+    if sys.platform == "win32":
+        venv_python = venv_dir / "Scripts" / "python.exe"
+    else:
+        venv_python = venv_dir / "bin" / "python"
+
+    if not venv_python.exists():
+        print(f"Venv not found at {venv_dir}. Run: momobot-init")
+        sys.exit(1)
+
+    # if already running from venv, continue normally
+    if Path(sys.executable).resolve() == venv_python.resolve():
+        return config
+
+    # re-exec from venv python
+    os.execv(str(venv_python), [str(venv_python)] + sys.argv)
+
+config = _ensure_venv()
+
+# ── After this line, you're guaranteed inside the venv ──
+# Use config["model"], config["workspace"], config["shell"] as needed
+
+
+
 # =============================================================================
 #                             EXTERNAL DEPENDENCIES                           |                 
 # =============================================================================
@@ -12,6 +54,7 @@ from langgraph.prebuilt         import ToolNode
 from langchain_ollama           import ChatOllama
 from rich.console               import Console
 from rich.markdown              import Markdown
+from pathlib                    import Path
 # =============================================================================
 #                             INTERNAL DEPENDENCIES                           |                 
 # =============================================================================
@@ -25,12 +68,15 @@ import json
 import time
 import bootstrap
 import sys
+import os
+
+
 
 # =============================================================================
 #                                  VARIABLES                                  |
 # =============================================================================
 SYSTEM_PROMPT           =   system_prompt
-MODEL                   =   "gemma4:31b-cloud"
+MODEL                   =   config["model"]
 BASE_URL                =   "http://localhost:11434"
 CTX_WINDOW              =   262144
 STREAM                  =   False
@@ -55,8 +101,20 @@ class AgentState(TypedDict):
 # =============================================================================
 tools = base_tools + [subagent]
 
-llm       = ChatOllama(model=MODEL, reasoning=False, base_url=BASE_URL, num_ctx=CTX_WINDOW, stream=STREAM).bind_tools(tools)
-llm_think = ChatOllama(model=MODEL, reasoning=True,  base_url=BASE_URL, num_ctx=CTX_WINDOW, stream=STREAM).bind_tools(tools)
+llm       = ChatOllama(
+    model=MODEL, 
+    reasoning=False, 
+    base_url=BASE_URL, 
+    num_ctx=CTX_WINDOW, 
+    stream=STREAM
+    ).bind_tools(tools)
+llm_think = ChatOllama(
+    model=MODEL, 
+    reasoning=True,  
+    base_url=BASE_URL, 
+    num_ctx=CTX_WINDOW, 
+    stream=STREAM
+    ).bind_tools(tools)
 
 
 def make_session():
@@ -264,7 +322,10 @@ graph.add_edge("COMPACT",   "USER_INPUT")
 
 momobot = graph.compile()
 
-if __name__ == "__main__":
+def main():
     console.print("\n" * 25)
     console.print("[●_●]", style=terracota)
     momobot.invoke({"messages": [], "summary": "", "end": ""})
+
+if __name__ == "__main__":
+    main()

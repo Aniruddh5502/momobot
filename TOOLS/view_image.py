@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 # view_image.py
 from langchain_core.tools import StructuredTool
 from pydantic import BaseModel, Field
@@ -8,7 +11,7 @@ import base64
 import io
 import ollama
 from rich.console import Console
-from momo.WORKSPACE.output.momobot.bootstrap import WORKSPACE_DIR
+from bootstrap import WORKSPACE_DIR
 console = Console()
 
 

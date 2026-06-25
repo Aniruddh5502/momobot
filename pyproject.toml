@@ -1,11 +1,24 @@
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.backends.legacy:build"
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "momobot"
 version = "0.1.0"
-dependencies = [] # keep using requirements.txt
+dependencies = [
+    "langchain_core",
+    "rich",
+    "dotenv",
+    "pydantic",
+    "langchain_ollama",
+    "ollama",
+    "langgraph",
+    "playwright",
+    "bs4",
+    "prompt_toolkit",
+    "Pillow",
+    "pdf2image",
+]
 
 [project.scripts]
 momobot = "main:main"
@@ -14,3 +27,6 @@ momobot-init = "momobot_init:main"
 [tool.setuptools]
 py-modules = ["main", "momobot_init", "bootstrap"]
 packages = ["TOOLS", "VISUALS"]
+
+[tool.setuptools.package-dir]
+"" = "."

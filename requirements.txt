@@ -8,3 +8,4 @@ langgraph
 playwright
 bs4
 prompt_toolkit
+Pillow

@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import json
 import tempfile
 from pathlib import Path
@@ -5,7 +8,7 @@ import ollama
 from pdf2image import convert_from_path
 from langchain_core.tools import Tool
 from rich.console import Console
-from momo.WORKSPACE.output.momobot.bootstrap import WORKSPACE_DIR
+from bootstrap import WORKSPACE_DIR
 
 _console = Console()
 _CORAL  = "#FF5F00"

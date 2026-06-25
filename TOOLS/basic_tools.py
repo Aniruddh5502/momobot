@@ -9,9 +9,12 @@ from langchain_core.tools import BaseTool, Tool, tool
 from dotenv import load_dotenv
 import os
 import re
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from rich.markdown import Markdown
 from VISUALS.animation import ThinkingAnimation
-from momo.WORKSPACE.output.momobot.bootstrap import terracota, green_oli, cyan_blue, pink_purp, WORKSPACE_DIR
+from bootstrap import terracota, green_oli, cyan_blue, pink_purp, WORKSPACE_DIR
 
 _console = Console()
 _CORAL   = "#FF5F00"

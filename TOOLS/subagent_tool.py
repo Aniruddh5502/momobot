@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import operator
 from typing  				import Annotated, TypedDict, Sequence
 from langchain_core.messages 		import BaseMessage, HumanMessage, AIMessage, ToolMessage, SystemMessage
@@ -7,7 +10,7 @@ from langgraph.prebuilt 		import ToolNode
 from langchain_ollama 			import ChatOllama
 from rich.console 			import Console
 from rich.markdown 			import Markdown
-from momo.WORKSPACE.output.momobot.bootstrap 				import sub_agent_sys_prompt
+from bootstrap 				import sub_agent_sys_prompt
 from VISUALS.animation 			import ThinkingAnimation
 
 _console = Console()

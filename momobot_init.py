@@ -14,7 +14,7 @@ from pathlib import Path
 # ── Re-exec guard: if not running from system python, skip (init uses system python intentionally) ──
 CONFIG_DIR = Path.home() / ".momobot"
 CONFIG_FILE = CONFIG_DIR / "config.json"
-VENV_DIR = CONFIG_DIR / "venv"
+VENV_DIR = CONFIG_DIR / "momobot-env"
 
 
 # ── Rich / prompt_toolkit may not be installed yet at init time, so we use plain terminal UI ──

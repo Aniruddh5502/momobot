@@ -4,14 +4,16 @@
 from pathlib import Path
 from datetime import datetime
 from rich.console import Console
-
+import json
 console = Console()
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+config_file = Path.home() / ".momobot" / "config.json"
+config = json.loads(config_file.read_text())
 
 SCRIPT_DIR              =       Path(__file__).parent
 MEMORY_DIR              =       SCRIPT_DIR/"MEMORY"
 CONVERSATION_DIR        =       SCRIPT_DIR/"CONVERSATION"
-WORKSPACE_DIR           =       SCRIPT_DIR/"WORKSPACE"
+WORKSPACE_DIR           =       Path(config["workspace"])
 PROMPT_DIR              =       SCRIPT_DIR/"PROMPT"
 OBSIDIAN_DIR            =       WORKSPACE_DIR/"obsidian"
 OUTPUTS_DIR             =       WORKSPACE_DIR/"output"
@@ -33,6 +35,7 @@ pink_purp = "#B45EE3"
 # ======================================================================
 # FIRST: Create all necessary directories
 # ======================================================================
+
 for path in paths_to_check:
     path.mkdir(parents=True, exist_ok=True)
 
