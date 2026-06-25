@@ -50,7 +50,6 @@ The graph has four nodes:
 | PDF parsing | LlamaCloud API |
 | Web search | `ddgs` (DuckDuckGo) |
 
-Default model: `gemma4:31b-cloud` — swap via the `MODEL` constant in `main.py`.
 
 ---
 
@@ -137,10 +136,10 @@ Momobot tracks token usage from Ollama's `prompt_eval_count` metadata. When it c
 
 ## Configuration
 
-All top-level constants live in `main.py`:
+All top-level constants live in `config.json and main.py`:
 
 ```python
-MODEL                = "gemma4:31b-cloud"   # Ollama model tag
+MODEL                = config["model"]   # Ollama model tag
 BASE_URL             = "http://localhost:11434"
 CTX_WINDOW           = 262144               # Ollama num_ctx
 STREAM               = True
@@ -423,3 +422,28 @@ To exit the session, type `x`, `exit`, `quit`, or `end` at the prompt, or leave 
 - `str_replace_tool` requires that `old_str` appears **exactly once** in the target file.
 - OCR uses `glm-ocr:q8_0` — pull it via Ollama separately from the main reasoning model.
 - Vision analysis in `view_image` uses the same model as reasoning.
+
+
+## Installation Guide
+
+- Prerequisite: Ollama needs to be installed and glm ocr 0.8b model for parsing tool required
+- Prerequisite: Ollma must have the main llm that's going to be hendling the main workload.
+- Another instance of the main model is going to be working as the Subagent. Or you can change that in subagent tool file in TOOLS/
+
+First clone the repo/download the repository
+```bash
+git clone https://github.com/Aniruddh5502/momobot.git
+```
+Then get into the repo. Replace the name if anything else is the folders name.
+```bash
+cd momobot-master
+```
+Then using global python run this command
+```bash
+python momobot-init.py
+```
+Then follow the instructions and after finishing installation
+from anywhere run 
+```bash
+momobot
+```
