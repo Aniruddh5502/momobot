@@ -19,7 +19,7 @@ import tempfile
 import zipfile
 from pathlib import Path
 
-from validators import DOCXSchemaValidator, PPTXSchemaValidator, RedliningValidator
+from momo.WORKSPACE.output.momobot.WORKSPACE.PROMPT.user.pptx_skill.scripts.office.validators import DOCXSchemaValidator, PPTXSchemaValidator, RedliningValidator
 
 
 def main():

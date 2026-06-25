@@ -19,7 +19,7 @@ from pathlib import Path
 
 import defusedxml.minidom
 
-from validators import DOCXSchemaValidator, PPTXSchemaValidator, RedliningValidator
+from momo.WORKSPACE.output.momobot.WORKSPACE.PROMPT.user.pptx_skill.scripts.office.validators import DOCXSchemaValidator, PPTXSchemaValidator, RedliningValidator
 
 def pack(
     input_directory: str,

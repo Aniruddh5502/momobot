@@ -23,7 +23,7 @@ import zipfile
 from pathlib import Path
 
 import defusedxml.minidom
-from office.soffice import get_soffice_env
+from momo.WORKSPACE.output.momobot.WORKSPACE.PROMPT.user.pptx_skill.scripts.office.soffice import get_soffice_env
 from PIL import Image, ImageDraw, ImageFont
 
 THUMBNAIL_WIDTH = 300

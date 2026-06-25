@@ -20,8 +20,8 @@ from pathlib import Path
 
 import defusedxml.minidom
 
-from helpers.merge_runs import merge_runs as do_merge_runs
-from helpers.simplify_redlines import simplify_redlines as do_simplify_redlines
+from momo.WORKSPACE.output.momobot.WORKSPACE.PROMPT.user.pptx_skill.scripts.office.helpers.merge_runs import merge_runs as do_merge_runs
+from momo.WORKSPACE.output.momobot.WORKSPACE.PROMPT.user.pptx_skill.scripts.office.helpers.simplify_redlines import simplify_redlines as do_simplify_redlines
 
 SMART_QUOTE_REPLACEMENTS = {
     "\u201c": "&#x201C;",  
