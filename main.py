@@ -6,6 +6,7 @@ It re-execs main.py inside the venv if not already running from it.
 import sys
 import os
 import json
+import shutil
 from pathlib import Path
 
 def _ensure_venv():
@@ -50,7 +51,7 @@ from langgraph.graph.message    import add_messages, RemoveMessage
 from langgraph.graph            import StateGraph, START, END
 from prompt_toolkit             import PromptSession
 from prompt_toolkit.key_binding import KeyBindings
-from langgraph.prebuilt         import ToolNode 
+from langgraph.prebuilt         import ToolNode
 from langchain_ollama           import ChatOllama
 from rich.console               import Console
 from rich.markdown              import Markdown
@@ -102,17 +103,17 @@ class AgentState(TypedDict):
 tools = base_tools + [subagent]
 
 llm       = ChatOllama(
-    model=MODEL, 
-    reasoning=False, 
-    base_url=BASE_URL, 
-    num_ctx=CTX_WINDOW, 
+    model=MODEL,
+    reasoning=False,
+    base_url=BASE_URL,
+    num_ctx=CTX_WINDOW,
     stream=STREAM
     ).bind_tools(tools)
 llm_think = ChatOllama(
-    model=MODEL, 
-    reasoning=True,  
-    base_url=BASE_URL, 
-    num_ctx=CTX_WINDOW, 
+    model=MODEL,
+    reasoning=True,
+    base_url=BASE_URL,
+    num_ctx=CTX_WINDOW,
     stream=STREAM
     ).bind_tools(tools)
 
@@ -155,10 +156,9 @@ def input_node(state: AgentState) -> AgentState:
         console.print(rs)
 
         console.print("")
-        console.print(
-            "[dim green]                                                                            ● TOKEN USAGES: [/dim green]",
-            f"[dim green]{TOKEN_USAGE}[/dim green]"
-        )
+        columns, lines = shutil.get_terminal_size(fallback=(80,24))
+        gap = columns - 20
+        console.print(" "*gap,f"[dim]TOKEN USAGES: {TOKEN_USAGE}[/dim]")
 
     console.rule(style='dim')
     user_input = session.prompt("❯  ").strip()
