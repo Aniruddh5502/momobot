@@ -2,6 +2,7 @@
 # Directories  Setup                                                    ||
 # ======================================================================||
 from pathlib import Path
+import shutil
 from datetime import datetime
 from rich.console import Console
 import json
@@ -13,18 +14,25 @@ config = json.loads(config_file.read_text())
 SCRIPT_DIR              =       Path(__file__).parent
 MEMORY_DIR              =       SCRIPT_DIR/"MEMORY"
 CONVERSATION_DIR        =       SCRIPT_DIR/"CONVERSATION"
-WORKSPACE_DIR           =       Path(config["workspace"])
+#WORKSPACE_DIR           =       Path(config["workspace"])
+WORKSPACE_DIR           =       Path.cwd()
 PROMPT_DIR              =       SCRIPT_DIR/"PROMPT"
 OBSIDIAN_DIR            =       WORKSPACE_DIR/"obsidian"
-OUTPUTS_DIR             =       WORKSPACE_DIR/"output"
-
+OUTPUTS_DIR             =       WORKSPACE_DIR/"OUTPUT"
+CWD                     =       Path.cwd
 paths_to_check  =   [
     SCRIPT_DIR,
     PROMPT_DIR,
     MEMORY_DIR,
-    OBSIDIAN_DIR,
     OUTPUTS_DIR,
 ]
+
+# Skills folder copying
+SRC = SCRIPT_DIR / "WORKSPACE" / "skills"
+DST = WORKSPACE_DIR / "skills"
+if not DST.exists():
+    shutil.copytree(SRC, DST, dirs_exist_ok=False)
+
 
 # Colors Tetradic
 terracota = "#E3725E"

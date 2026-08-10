@@ -83,7 +83,7 @@ CTX_WINDOW              =   262144
 STREAM                  =   False
 REASONING               =   False
 TOKEN_USAGE             =   0
-COMPACTION_THRESHOLD    =   100000
+COMPACTION_THRESHOLD    =   50000
 RECENT_WINDOW           =   6
 console                 =   Console()
 anim                    =   ThinkingAnimation()
@@ -157,7 +157,7 @@ def input_node(state: AgentState) -> AgentState:
 
         console.print("")
         columns, lines = shutil.get_terminal_size(fallback=(80,24))
-        gap = columns - 20
+        gap = columns - 21
         console.print(" "*gap,f"[dim]TOKEN USAGES: {TOKEN_USAGE}[/dim]")
 
     console.rule(style='dim')

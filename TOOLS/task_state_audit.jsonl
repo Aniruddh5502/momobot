@@ -424,3 +424,126 @@
 {"timestamp": "2026-06-25T08:31:49.300735+00:00", "event": "step_complete", "details": {"step_id": "mem_test", "has_result": true}}
 {"timestamp": "2026-06-25T08:31:49.398210+00:00", "event": "state_cleared", "details": {}}
 {"timestamp": "2026-06-25T08:31:49.399999+00:00", "event": "step_complete", "details": {"step_id": "task_test", "has_result": true}}
+{"timestamp": "2026-06-27T10:46:19.409720+00:00", "event": "init_task", "details": {"goal": "High-intensity competitive analysis of portfolio https://aniruddh5502.github.io/Portfolio/ against top-tier ML/Robotics standards.", "step_count": 6}}
+{"timestamp": "2026-06-27T10:46:47.369982+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-27T10:46:54.444345+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-27T10:47:17.419331+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-27T10:47:25.480638+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-06-27T10:47:43.786531+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-06-29T04:19:02.903048+00:00", "event": "init_task", "details": {"goal": "Research and compile a list of highly-regarded books and frameworks for starting a service-based agency, focused on scaling, offer creation, client acquisition, and operational excellence.", "step_count": 5}}
+{"timestamp": "2026-06-29T04:21:49.106511+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-29T04:21:49.129554+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-29T04:21:49.163148+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-06-30T18:45:13.508369+00:00", "event": "init_task", "details": {"goal": "Apply typo fixes, modify return type and error handling in kuet-docai/backend/query_tool.py", "step_count": 4}}
+{"timestamp": "2026-06-30T18:48:44.130657+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-06-30T18:48:44.153388+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-06-30T18:48:44.153268+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-07-26T17:53:03.518307+00:00", "event": "state_cleared", "details": {}}
+{"timestamp": "2026-07-26T17:54:35.771675+00:00", "event": "init_task", "details": {"goal": "Implement a professional chat interface for the RAG application frontend.", "step_count": 5}}
+{"timestamp": "2026-07-26T17:54:41.985446+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-07-26T17:55:04.307140+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-07-26T17:55:16.617096+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-07-26T17:55:25.783022+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-07-26T17:55:29.145610+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-07-26T18:04:51.346517+00:00", "event": "init_task", "details": {"goal": "Analyze frontend files and evaluate readiness for a multi-user Agentic RAG chatbot, update README.md and report gaps.", "step_count": 5}}
+{"timestamp": "2026-07-26T18:06:26.973755+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-07-26T18:06:26.996322+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-07-26T18:06:27.018723+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-07-26T18:06:27.018967+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-07-26T18:10:32.902522+00:00", "event": "init_task", "details": {"goal": "Implement a class-based LangGraph agent and integrate it into the FastAPI backend with streaming support.", "step_count": 3}}
+{"timestamp": "2026-07-26T18:10:50.616957+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-07-26T18:12:24.748692+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-07-26T18:12:51.947492+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-07-28T13:58:04.372252+00:00", "event": "init_task", "details": {"goal": "Prepare the repository for GitHub by professionalizing the README.md and verifying the .gitignore.", "step_count": 4}}
+{"timestamp": "2026-07-28T13:59:23.742407+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-07-28T13:59:27.659472+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-07-28T13:59:31.105854+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-07-28T13:59:33.962657+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-07-31T15:52:52.477923+00:00", "event": "init_task", "details": {"goal": "Complete Step 2.1 of the Deployment Roadmap (Dependency Audit) by creating/updating a professional, pinned requirements.txt.", "step_count": 6}}
+{"timestamp": "2026-07-31T15:54:19.465245+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-07-31T15:54:21.100452+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-07-31T15:54:22.737728+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-07-31T15:54:28.584529+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-07-31T15:54:32.423521+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-07-31T15:54:37.881594+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-08-01T13:37:51.381453+00:00", "event": "init_task", "details": {"goal": "Provide a brutal, high-density technical critique of backend/agent.py and backend/rag_processor.py.", "step_count": 4}}
+{"timestamp": "2026-08-01T13:38:19.048109+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-01T13:38:19.082777+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T13:38:19.104141+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-01T13:58:08.837827+00:00", "event": "init_task", "details": {"goal": "Implement a production-grade logging system in the backend, replacing all print() statements.", "step_count": 8}}
+{"timestamp": "2026-08-01T14:03:59.318690+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-01T14:04:14.410852+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T14:04:18.687787+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-01T14:04:22.962436+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-08-01T14:04:31.319489+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-08-01T14:04:36.436060+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-08-01T14:04:46.338380+00:00", "event": "step_complete", "details": {"step_id": "7", "has_result": true}}
+{"timestamp": "2026-08-01T14:04:56.280373+00:00", "event": "step_complete", "details": {"step_id": "8", "has_result": true}}
+{"timestamp": "2026-08-01T14:18:15.369296+00:00", "event": "init_task", "details": {"goal": "Provide a high-density technical critique of the backend code focusing on reliability, performance, error handling, and maintainability.", "step_count": 5}}
+{"timestamp": "2026-08-01T14:47:06.427544+00:00", "event": "init_task", "details": {"goal": "Perform a high-density technical critique of the backend implementation focusing on reliability, performance, error handling, maintainability, and the Ghost Document problem.", "step_count": 6}}
+{"timestamp": "2026-08-01T14:47:40.132163+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-01T14:47:40.154744+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T14:47:40.189066+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-01T14:58:19.686478+00:00", "event": "init_task", "details": {"goal": "Perform a high-density technical critique of the backend implementation focusing on the next layer of faults.", "step_count": 5}}
+{"timestamp": "2026-08-01T15:12:47.144466+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-01T15:13:16.734334+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T15:21:47.867739+00:00", "event": "init_task", "details": {"goal": "Perform a high-density, brutal technical critique of the backend codebase focusing on race conditions, memory leaks, security, LangGraph bottlenecks, and error handling.", "step_count": 7}}
+{"timestamp": "2026-08-01T15:22:22.905900+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T15:22:22.953424+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-01T15:22:22.958048+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-01T15:22:22.975848+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-08-01T15:22:22.975971+00:00", "event": "step_complete", "details": {"step_id": "7", "has_result": true}}
+{"timestamp": "2026-08-01T15:39:16.375200+00:00", "event": "init_task", "details": {"goal": "Perform a high-density technical review of the backend code focusing on LangGraph performance, rag_processor memory/resource handling, error robustness, and technical debt.", "step_count": 6}}
+{"timestamp": "2026-08-01T15:40:17.886242+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-01T15:40:17.888593+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-08-01T15:40:17.930311+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T15:40:17.976031+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-08-01T15:40:17.975920+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-01T15:40:17.979601+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-08-01T15:43:54.998105+00:00", "event": "init_task", "details": {"goal": "Perform a high-density technical review of the backend code and provide a Production Readiness Score.", "step_count": 4}}
+{"timestamp": "2026-08-01T15:45:21.181642+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-01T15:45:21.204284+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T15:45:26.712105+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-08-01T15:51:10.871221+00:00", "event": "init_task", "details": {"goal": "Perform a high-density technical review of the backend code based on provided context and files.", "step_count": 4}}
+{"timestamp": "2026-08-01T15:52:53.851294+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T15:52:53.873873+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-01T15:52:53.896231+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-08-01T15:58:22.818151+00:00", "event": "init_task", "details": {"goal": "Perform a high-density technical critique of the backend codebase for an Agentic RAG system.", "step_count": 6}}
+{"timestamp": "2026-08-01T16:10:28.892055+00:00", "event": "init_task", "details": {"goal": "Perform a comprehensive technical critique and rating of the backend codebase for the Agentic RAG system.", "step_count": 7}}
+{"timestamp": "2026-08-01T16:11:38.982977+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-01T16:11:38.982514+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-01T16:11:39.006102+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T16:11:39.027734+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-08-01T16:11:51.934649+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-08-01T16:11:51.956890+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-08-01T16:11:51.981087+00:00", "event": "step_complete", "details": {"step_id": "7", "has_result": true}}
+{"timestamp": "2026-08-01T16:16:10.550538+00:00", "event": "init_task", "details": {"goal": "Perform a high-density technical critique and rating of the backend codebase for the Agentic RAG system.", "step_count": 8}}
+{"timestamp": "2026-08-01T16:16:43.085374+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-01T16:16:43.087724+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T16:16:43.107783+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-01T16:16:43.111304+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-08-01T16:16:43.130904+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-08-01T16:16:55.022407+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-08-01T16:16:55.045014+00:00", "event": "step_complete", "details": {"step_id": "7", "has_result": true}}
+{"timestamp": "2026-08-01T16:16:55.068646+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-08-01T16:17:01.959423+00:00", "event": "step_complete", "details": {"step_id": "8", "has_result": true}}
+{"timestamp": "2026-08-01T16:17:56.263896+00:00", "event": "init_task", "details": {"goal": "Perform a final high-density technical critique and rating of the backend codebase for the Agentic RAG system.", "step_count": 6}}
+{"timestamp": "2026-08-01T16:19:40.816020+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-01T16:19:40.838345+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-01T16:19:40.846100+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-07T14:59:58.526866+00:00", "event": "init_task", "details": {"goal": "Research and document Notion's design patterns (Fonts, Colors, Icons, Animations) and save to frontend/notion_design_patterns.md", "step_count": 6}}
+{"timestamp": "2026-08-07T15:10:05.977100+00:00", "event": "step_complete", "details": {"step_id": "4", "has_result": true}}
+{"timestamp": "2026-08-07T15:10:05.977390+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-07T15:10:06.043579+00:00", "event": "step_complete", "details": {"step_id": "6", "has_result": true}}
+{"timestamp": "2026-08-07T15:10:06.043782+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}
+{"timestamp": "2026-08-07T15:10:06.043028+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-07T15:10:06.043862+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-07T16:02:27.071736+00:00", "event": "init_task", "details": {"goal": "Identify and fix why the 'scroll to bottom' button is not being hidden in the frontend.", "step_count": 5}}
+{"timestamp": "2026-08-07T16:06:37.021895+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-07T16:06:37.044765+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-07T16:06:37.066793+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-07T17:18:49.381999+00:00", "event": "init_task", "details": {"goal": "Improve the message rendering aesthetics in the frontend to match top-tier AI interfaces like ChatGPT, Claude, and DeepSeek, reducing the \"clustered\" feel.", "step_count": 6}}
+{"timestamp": "2026-08-07T17:20:04.887458+00:00", "event": "step_complete", "details": {"step_id": "1", "has_result": true}}
+{"timestamp": "2026-08-07T17:20:04.910120+00:00", "event": "step_complete", "details": {"step_id": "3", "has_result": true}}
+{"timestamp": "2026-08-07T17:20:04.910035+00:00", "event": "step_complete", "details": {"step_id": "2", "has_result": true}}
+{"timestamp": "2026-08-07T17:20:04.954610+00:00", "event": "step_complete", "details": {"step_id": "5", "has_result": true}}

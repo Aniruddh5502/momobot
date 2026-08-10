@@ -15,7 +15,7 @@ cleverness. Use this skill whenever writing Python,<br><br>  C/C
 for<br><br>  everything from quick one-off scripts to complex 
 thesis components, ensuring<br><br>  that no "lazy" coding 
 patterns (like placeholders or monolithic files) are used. 
-Location: `PROMPT/user/code_writing/SKILL.md`
+Location: `skills/code_writing/SKILL.md`
 
 **Graphing**  
 Create publication-quality matplotlib figures adhering to 
@@ -27,7 +27,7 @@ Also trigger for Momobot-specific plots such as token<br><br>   
 usage over time, memory compaction events, loop iteration 
 metrics, or any agent<br><br>    performance visualization. When 
 in doubt, use this skill.
-Location: `PROMPT/user/graph_design/SKILL.md`
+Location: `skills/graph_design/SKILL.md`
 
 **Mind Map / Wiki**          
 Transform raw sources (PDFs, Web, Docs) into a high-density, 
@@ -38,23 +38,20 @@ information repository in the obsidian/ folder. This skill
 implements the MIT OCW Pedagogy Standard, ensuring information is 
 structured for deep conceptual mastery. Knowledge bases, wikis, 
 mind maps, `obsidian/` folder.
-Location: `PROMPT/user/mind_map/SKILL.md`
+Location: `skills/mind_map/SKILL.md`
 
-**CSV Processing**    `PROMPT/user/csv/SKILL.md`             
+**CSV Processing**    `skills/csv/SKILL.md`             
 Work with csv files in a modular way. This skill lists scripts 
 that make working with csv files easier.<br><br>  Use this skill 
 when you need to do csv cleaning, scaling, reversing scale, 
 getting metadata of a csv file etc tasks.<br><br>  This skill 
 lists scripts and their uses to process csv files easily. you can 
 get header, dimention, num of rows from this skill.
-Location: `PROMPT/user/csv/SKILL.md`
+Location: `skills/csv/SKILL.md`
 
-**Subagent Behavior**           
-Applied automatically to all subagent instances.
-Location: `PROMPT/subagent/sub_soul.md`
 
 **Frontend Design**     
-Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.                                                       Location: `PROMPT/user/frontend-design/SKILL.md`
+Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.                                     Location: `skills/frontend-design/SKILL.md`
 
 
 `</skills_index>`
