@@ -23,7 +23,7 @@ SPINNERS = {
 """
 # Frames for different animations
 SPINNERS = {
-    "sparkle": ["✽", "✻", "∴", "✽", "✻", "∴", "·", "*"]
+    "sparkle":["✻","✢","·", "✢", "✳", "∗", "✻", "✽"]
 }
 
 THINKING_VERBS = [
@@ -53,7 +53,7 @@ class ThinkingAnimation:
         while not self._stop_event.is_set():
             frame = next(self.frames)
             # \r returns cursor to start of line
-            sys.stdout.write(f"\r{self.color_code}{frame} {self.reset_code} {self.verb}")
+            sys.stdout.write(f"\r{frame} {self.reset_code} {self.verb}")
             sys.stdout.flush()
             time.sleep(0.2)
 

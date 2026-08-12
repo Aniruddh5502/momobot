@@ -45,8 +45,8 @@ _CORAL = "#C8603A"
 _SAGE = "#7A9A6E"
 _SLATE = "#5A6B7A"
 # _BULLET = f"[{_CORAL}]●[/{_CORAL}]" if _HAS_RICH else "•"
-_BULLET = "[green3]●[/green3]"
-_NEST = "[dim]  ⎿[/dim]" if _HAS_RICH else "  "
+_BULLET = "✻ "
+_NEST    = "[dim]   └─[/dim]" if _HAS_RICH else "  "
 
 def _print(*content, style: str = "dim") -> None:
     """Print with Rich if available, else fallback to print()"""
@@ -380,30 +380,27 @@ def read_task_state() -> str:
     state = _load()
     
     if not state:
-        _print()
         _print(f"{_BULLET} [bold red]No Task[/bold red]")
         _print(f"{_NEST} Initialize one with init_task()")
-        _print()
+        _print(" ")
         return json.dumps({"error": "No task initialized yet."})
     
     errors = _validate_state(state)
     if errors:
-        _print()
         _print(f"{_BULLET} [bold red]Validation Error[/bold red]")
         for err in errors:
             _print(f"{_NEST} {err}")
-        _print()
+        _print(" ")
         return json.dumps({
             "error": "State validation failed",
             "details": errors,
             "state": state
         })
     
-    _print()
     _print(f"{_BULLET} [bold {_SAGE}]Reading State[/bold {_SAGE}]")
     _print(f"{_NEST} [dim]{state.get('goal', '(untitled)')[:50]}[/dim]")
     _print(f"{_NEST} [bold]✓ Done[/bold]")
-    _print()
+    _print(" ")
     
     return json.dumps(state, indent=2, default=str)
 
@@ -450,10 +447,9 @@ def init_task(goal: str, steps: List[StepInput]) -> str:
             })
         
         if not normalised:
-            _print()
             _print(f"{_BULLET} [bold red]No Steps[/bold red]")
             _print(f"{_NEST} Each step needs 'id' and 'task'")
-            _print()
+            _print(" ")
             return json.dumps({"error": "No valid steps provided. Each step must have 'id' and 'task'."})
         
         state = {
@@ -468,21 +464,19 @@ def init_task(goal: str, steps: List[StepInput]) -> str:
         _save(state)
         _log_audit("init_task", {"goal": goal, "step_count": len(normalised)})
         
-        _print()
         _print(f"{_BULLET} [bold {_SAGE}]Task Initialized[/bold {_SAGE}]")
         _print(f"{_NEST} [dim]{goal[:50]}[/dim]")
         _print(f"{_NEST} [dim]{len(normalised)} steps[/dim]")
         _print(f"{_NEST} [bold]✓ Done[/bold]")
-        _print()
+        _print(" ")
         
         return json.dumps(state, indent=2, default=str)
     
     except Exception as e:
         error_msg = f"{type(e).__name__}: {e}"
-        _print()
         _print(f"{_BULLET} [bold red]Error[/bold red]")
         _print(f"{_NEST} {error_msg}")
-        _print()
+        _print(" ")
         _log_audit("init_task_error", {"error": error_msg})
         return json.dumps({"error": error_msg})
 
@@ -502,10 +496,9 @@ def complete_step(step_id: str, result: Optional[str] = None) -> str:
         state = _load()
         
         if not state:
-            _print()
             _print(f"{_BULLET} [bold red]No Task[/bold red]")
             _print(f"{_NEST} Initialize one with init_task()")
-            _print()
+            _print(" ")
             return json.dumps({"error": "No task initialized. Call init_task first."})
         
         step_id = str(step_id).strip()
@@ -513,11 +506,10 @@ def complete_step(step_id: str, result: Optional[str] = None) -> str:
         
         if step is None:
             available = [s["id"] for s in state.get("steps", [])]
-            _print()
             _print(f"{_BULLET} [bold red]Not Found[/bold red]")
             _print(f"{_NEST} Step '{step_id}' not found")
             _print(f"{_NEST} [dim]Available: {available}[/dim]")
-            _print()
+            _print(" ")
             return json.dumps({
                 "error": f"Step '{step_id}' not found. Available: {available}"
             })
@@ -533,22 +525,21 @@ def complete_step(step_id: str, result: Optional[str] = None) -> str:
         _save(state)
         _log_audit("step_complete", {"step_id": step_id, "has_result": result is not None})
         
-        _print()
+        
         _print(f"{_BULLET} [bold {_SAGE}]Step Complete[/bold {_SAGE}]")
         _print(f"{_NEST} [dim]Step {step_id}[/dim]")
         if result:
             _print(f"{_NEST} [dim]{result[:50]}[/dim]")
         _print(f"{_NEST} [bold]✓ Done[/bold]")
-        _print()
+        _print(" ")
         
         return json.dumps(state, indent=2, default=str)
     
     except Exception as e:
         error_msg = f"{type(e).__name__}: {e}"
-        _print()
         _print(f"{_BULLET} [bold red]Error[/bold red]")
         _print(f"{_NEST} {error_msg}")
-        _print()
+        _print(" ")
         _log_audit("step_complete_error", {"step_id": step_id, "error": error_msg})
         return json.dumps({"error": error_msg})
 
@@ -570,10 +561,9 @@ def fail_step(step_id: str, reason: str) -> str:
         state = _load()
         
         if not state:
-            _print()
             _print(f"{_BULLET} [bold red]No Task[/bold red]")
             _print(f"{_NEST} Initialize one with init_task()")
-            _print()
+            _print(" ")
             return json.dumps({"error": "No task initialized. Call init_task first."})
         
         step_id = str(step_id).strip()
@@ -581,11 +571,10 @@ def fail_step(step_id: str, reason: str) -> str:
         
         if step is None:
             available = [s["id"] for s in state.get("steps", [])]
-            _print()
             _print(f"{_BULLET} [bold red]Not Found[/bold red]")
             _print(f"{_NEST} Step '{step_id}' not found")
             _print(f"{_NEST} [dim]Available: {available}[/dim]")
-            _print()
+            _print(" ")
             return json.dumps({
                 "error": f"Step '{step_id}' not found. Available: {available}"
             })
@@ -598,21 +587,19 @@ def fail_step(step_id: str, reason: str) -> str:
         _save(state)
         _log_audit("step_failed", {"step_id": step_id, "reason": reason})
         
-        _print()
         _print(f"{_BULLET} [bold red]Step Failed[/bold red]")
         _print(f"{_NEST} [dim]Step {step_id}[/dim]")
         _print(f"{_NEST} [dim]{reason[:50]}[/dim]")
         _print(f"{_NEST} [yellow]→ Consider using replan_task()[/yellow]")
-        _print()
+        _print(" ")
         
         return json.dumps(state, indent=2, default=str)
     
     except Exception as e:
         error_msg = f"{type(e).__name__}: {e}"
-        _print()
         _print(f"{_BULLET} [bold red]Error[/bold red]")
         _print(f"{_NEST} {error_msg}")
-        _print()
+        _print(" ")
         _log_audit("step_failed_error", {"step_id": step_id, "error": error_msg})
         return json.dumps({"error": error_msg})
 
@@ -648,10 +635,9 @@ def replan_task(
         state = _load()
         
         if not state:
-            _print()
             _print(f"{_BULLET} [bold red]No Task[/bold red]")
             _print(f"{_NEST} Initialize one with init_task()")
-            _print()
+            _print(" ")
             return json.dumps({"error": "No task initialized. Call init_task first."})
         
         # Remove specified steps
@@ -699,7 +685,6 @@ def replan_task(
         _save(state)
         _log_audit("replan", {"reason": reason, "removed_count": len(remove_ids), "added_count": added_count})
         
-        _print()
         _print(f"{_BULLET} [bold {_SAGE}]Plan Updated[/bold {_SAGE}]")
         _print(f"{_NEST} [dim]{reason[:50]}[/dim]")
         if remove_ids:
@@ -707,16 +692,15 @@ def replan_task(
         if added_count:
             _print(f"{_NEST} [dim]Added {added_count} steps[/dim]")
         _print(f"{_NEST} [bold]✓ Done[/bold]")
-        _print()
+        _print(" ")
         
         return json.dumps(state, indent=2, default=str)
     
     except Exception as e:
         error_msg = f"{type(e).__name__}: {e}"
-        _print()
         _print(f"{_BULLET} [bold red]Error[/bold red]")
         _print(f"{_NEST} {error_msg}")
-        _print()
+        _print(" ")
         _log_audit("replan_error", {"reason": reason, "error": error_msg})
         return json.dumps({"error": error_msg})
 
@@ -726,11 +710,10 @@ def erase_task_state() -> str:
     try:
         _clear()  # Use clear instead of save
         
-        _print()
         _print(f"{_BULLET} [bold {_SAGE}]Task State Erased[/bold {_SAGE}]")
         _print(f"{_NEST} [dim]Fresh state ready for new plan[/dim]")
         _print(f"{_NEST} [bold]✓ Done[/bold]")
-        _print()
+        _print(" ")
         
         return json.dumps({
             "success": True, 

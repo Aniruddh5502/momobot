@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 # view_image.py
 from langchain_core.tools import StructuredTool
 from pydantic import BaseModel, Field
@@ -8,14 +11,14 @@ import base64
 import io
 import ollama
 from rich.console import Console
-from setup import WORKSPACE_DIR
+from bootstrap import WORKSPACE_DIR
 console = Console()
 
 
 # ── style helpers ──────────────────────────────────────────────────────
 _CORAL   = "#FF5F00"
-_BULLET  = f"[{_CORAL}]⬤[/{_CORAL}]"
-_NEST    = "[dim]  ⎿[/dim]"
+_BULLET  = f"✻ "
+_NEST    = "[dim]   └─[/dim]"
 # Formats that go through Playwright (rendered in a browser first)
 BROWSER_EXTENSIONS = {".svg", ".html", ".htm"}
 

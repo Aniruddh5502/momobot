@@ -1,17 +1,22 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import operator
-from typing import Annotated, TypedDict, Sequence
-from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, ToolMessage, SystemMessage
-from langchain_core.tools import tool
-from langgraph.graph import StateGraph, START, END
-from langgraph.prebuilt import ToolNode
-from langchain_ollama import ChatOllama
-from rich.console import Console
-from rich.markdown import Markdown
-from setup import sub_agent_sys_prompt
+from typing  				import Annotated, TypedDict, Sequence
+from langchain_core.messages 		import BaseMessage, HumanMessage, AIMessage, ToolMessage, SystemMessage
+from langchain_core.tools 		import tool
+from langgraph.graph 			import StateGraph, START, END
+from langgraph.prebuilt 		import ToolNode
+from langchain_ollama 			import ChatOllama
+from rich.console 			import Console
+from rich.markdown 			import Markdown
+from bootstrap 				import sub_agent_sys_prompt
+from VISUALS.animation 			import ThinkingAnimation
 
 _console = Console()
-_SUB_BULLET = "[cyan]●[/cyan]"
-_SUB_NEST = "[dim]  ⎿[/dim]"
+_SUB_BULLET = "[cyan]✻ [/cyan]"
+_NEST    = "[dim]   └─[/dim]"
+anim      = ThinkingAnimation() 
 
 MODEL          = "gemma4:31b-cloud"
 BASE_URL       = "http://localhost:11434"
@@ -22,7 +27,12 @@ class SUBAgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], operator.add]
 
 def reasoning_node(state: SUBAgentState, llm_with_tools):
+    anim.start()
     response = llm_with_tools.invoke(list(state["messages"]))
+    anim.stop()
+    _console.print("\n✻ Subagent Thinking...",style='dim')
+    _console.print(Markdown(response.additional_kwargs.get('reasoning_content')), style = 'dim')
+    _console.print("✻ \n",style='dim')
     return {"messages": [response]}
 
 def route_after_reasoning(state: SUBAgentState) -> str:
@@ -59,11 +69,11 @@ def subagent(task: str) -> str:
     arg: Detailed breakdown of the tasks that need to be completed.
     """
     _console.print(f"\n{_SUB_BULLET} [bold cyan]Subagent spawned...[/bold cyan]")
-    _console.print(f"{_SUB_NEST} [dim]Task: {task[:200]}...[/dim]")
+    _console.print(f"{_NEST} [dim]Task: {task[:200]}...[/dim]")
 
     from TOOLS.basic_tools import base_tools
 
-    llm = ChatOllama(model=MODEL, base_url=BASE_URL, num_ctx=CTX_WINDOW)
+    llm = ChatOllama(model=MODEL,reasoning = True,  base_url=BASE_URL, num_ctx=CTX_WINDOW)
     app = build_subagent_graph(llm, base_tools)
 
     state: SUBAgentState = {

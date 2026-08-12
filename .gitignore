@@ -25,11 +25,11 @@ WORKSPACE/.cache/
 .venv/
 venv/
 ENV/
-obsidian/
 .obsidian/
 .Finance/
 output/
-
+obsidian/
+Finance/
 
 
 # ANSYS / Simulation files
@@ -61,6 +61,4 @@ manifold-extraction_outputs.md
 .DS_Store
 Thumbs.db
 
-# files
-USER.md
-MEMORY.md
+

@@ -1,0 +1,13 @@
+langchain_core
+rich
+dotenv
+pydantic
+langchain_ollama
+ollama
+langgraph
+playwright
+bs4
+prompt_toolkit
+Pillow
+duckduckgo-search
+ddgs

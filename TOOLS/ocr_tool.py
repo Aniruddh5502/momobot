@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import json
 import tempfile
 from pathlib import Path
@@ -5,12 +8,12 @@ import ollama
 from pdf2image import convert_from_path
 from langchain_core.tools import Tool
 from rich.console import Console
-from setup import WORKSPACE_DIR
+from bootstrap import WORKSPACE_DIR
 
 _console = Console()
 _CORAL  = "#FF5F00"
-_BULLET = "[green3]●[/green3]"
-_NEST   = "[dim]  ⎿[/dim]"
+_BULLET = "✻ "
+_NEST    = "[dim]   └─[/dim]"
 
 
 def ocr_pdf(file_path: str, pages: list[int] | None = None) -> str:

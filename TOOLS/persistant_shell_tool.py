@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 # ======================================================================|
 # persistent_shell_tool.py                                             |
 # Production-grade persistent bash shell tool for Momobot.            |
@@ -22,16 +25,16 @@ from pathlib import Path
 from datetime import datetime
 from langchain_core.tools import Tool
 from rich.console import Console
-from setup import WORKSPACE_DIR
-from setup import SCRIPT_DIR
+from bootstrap import WORKSPACE_DIR
+from bootstrap import SCRIPT_DIR
 workspace = WORKSPACE_DIR
 # ======================================================================|
 # CONSTANTS & CONFIG                                                    |
 # ======================================================================|
 
 _console        = Console()
-_BULLET         = "[green4]●[/green4]"
-_NEST           = "[dim]  ⎿[/dim]"
+_BULLET         = "✽ "
+_NEST    = "[dim]   └─[/dim]"
 
 DEFAULT_TIMEOUT = 120          # seconds — agent calls that hang are worse than failing fast
 MAX_OUTPUT_CHARS = 4000       # total stdout+stderr budget returned to the LLM
