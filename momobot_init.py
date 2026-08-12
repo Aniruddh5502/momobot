@@ -262,13 +262,29 @@ def print_summary(config):
     print("\n  Run Momobot with:\n")
     print("    momobot\n")
 
+def _find_repo_root() -> Path:
+    candidate = Path(__file__).resolve().parent
+    if (candidate / "pyproject.toml").exists():
+        return candidate
 
+    # __file__ points into an installed copy (e.g. site-packages) — search cwd upward instead
+    here = Path.cwd()
+    for p in [here, *here.parents]:
+        if (p / "pyproject.toml").exists():
+            return p
+
+    print("  ✗ Could not locate the momobot repo (no pyproject.toml found).")
+    print("  Run momobot-init from inside your cloned momobot repo.")
+    sys.exit(1)
+
+
+    
 # ── Entry point ───────────────────────────────────────────────────────────────
 
 def main():
     print_header()
 
-    repo_root = Path(__file__).resolve().parent
+    repo_root = _find_repo_root()
 
     ollama_output = check_ollama()
     model         = select_model(ollama_output)

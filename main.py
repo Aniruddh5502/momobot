@@ -7,6 +7,7 @@ import sys
 import os
 import json
 import shutil
+import subprocess
 from pathlib import Path
 
 def _ensure_venv():
@@ -31,8 +32,21 @@ def _ensure_venv():
     if Path(sys.executable).resolve() == venv_python.resolve():
         return config
 
-    # re-exec from venv python
-    os.execv(str(venv_python), [str(venv_python)] + sys.argv)
+    # relaunch inside the target venv
+    if sys.platform == "win32":
+        # os.execv is emulated on Windows (spawn + kill), which is unreliable
+        # with interactive consoles: the parent shell can reclaim the prompt
+        # before/independent of the child attaching, orphaning prompt_toolkit's
+        # session. subprocess.run keeps this process alive and attached until
+        # the child exits, giving the child a stable inherited console.
+        # Relaunch main.py itself (not sys.argv[0], which may point at a
+        # foreign venv's wrapper exe) so the target venv's own interpreter
+        # runs this exact script.
+        result = subprocess.run([str(venv_python), str(Path(__file__).resolve())] + sys.argv[1:])
+        sys.exit(result.returncode)
+    else:
+        # true process replacement on POSIX; no console handoff issue
+        os.execv(str(venv_python), [str(venv_python), str(Path(__file__).resolve())] + sys.argv[1:])
 
 config = _ensure_venv()
 
