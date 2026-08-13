@@ -1,7 +1,6 @@
 ---
-name: mind-map
-description: >
-   Transform raw sources (PDFs, Web, Docs) into a high-density, self-curating Markdown Wiki. Use this skill whenever the user wants to build a knowledge base, organize research into a wiki, create a mind map of a subject, or manage a high-density information repository in the obsidian/ folder. This skill implements the MIT OCW Pedagogy Standard, ensuring information is structured for deep conceptual mastery.
+name: mind_map
+description: Transform raw sources (PDFs, Web, Docs) into a high-density, self-curating Markdown Wiki. Use this skill whenever the user wants to build a knowledge base, organize research into a wiki, create a mind map of a subject, or manage a high-density information repository in the obsidian/ folder. This skill implements the MIT OCW Pedagogy Standard, ensuring information is structured for deep conceptual mastery.
 ---
 
 # Fluid Knowledge Wiki — MIT OCW Pedagogy Engine

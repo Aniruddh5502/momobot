@@ -1,9 +1,6 @@
 ---
 name: csv
-description: >
-  Work with csv files in a modular way. This skill lists scripts that make working with csv files easier.
-  Use this skill when you need to do csv cleaning, scaling, reversing scale, getting metadata of a csv file etc tasks.
-  This skill lists scripts and their uses to process csv files easily. you can get header, dimention, num of rows from this skill.
+description: Work with csv files in a modular way. This skill lists scripts that make working with csv files easier. Use this skill when you need to do csv cleaning, scaling, reversing scale, getting metadata of a csv file etc tasks. This skill lists scripts and their uses to process csv files easily. you can get header, dimention, num of rows from this skill.
 ---
 
 ## SCRIPTS

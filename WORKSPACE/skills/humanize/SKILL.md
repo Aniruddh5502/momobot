@@ -1,7 +1,6 @@
 ---
-name: humanize-text
-description: >
- Use this skill whenever the user needs to make AI-generated text sound more human, "less robotic," or needs to bypass AI detection. Trigger this for any request involving "humanizing" text, writing "natural" emails, stripping "AI-polish," or creating content that avoids the typical markers of LLM writing. Even if the user doesn't explicitly say "humanize," if they ask for "casual," "raw," or "non-academic" versions of AI text, use this skill.
+name: humanize
+description: Use this skill whenever the user needs to make AI-generated text sound more human, "less robotic," or needs to bypass AI detection. Trigger this for any request involving "humanizing" text, writing "natural" emails, stripping "AI-polish," or creating content that avoids the typical markers of LLM writing. Even if the user doesn't explicitly say "humanize," if they ask for "casual," "raw," or "non-academic" versions of AI text, use this skill.
 ---
 
 # Humanize Text Skill (Sinceerly-Inspired)

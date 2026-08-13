@@ -1,6 +1,6 @@
 ---
 name: md-writing
-description: "Use this skill whenever the user asks to write, create, save, or produce a document, note, report, guide, reference sheet, or any long-form written content that should be saved as a file. Triggers include: \"write a doc\", \"make a note\", \"create a report\", \"save this as a file\", \"write me a guide\", \"make a reference sheet\", \"document this\", or any request where the deliverable is a standalone readable file rather than a conversational reply. Always use this skill when the output is meant to be kept, shared, or opened outside the chat — even if the request sounds casual."
+description: "Use this skill whenever the user asks to write, create, save, or produce a document, note, report, guide, reference sheet, or any long-form written content that should be saved as a file. Triggers include: 'write a doc', 'make a note', 'create a report', 'save this as a file', 'write me a guide', 'make a reference sheet', 'document this', or any request where the deliverable is a standalone readable file rather than a conversational reply. Always use this skill when the output is meant to be kept, shared, or opened outside the chat — even if the request sounds casual."
 ---
 
 ## When to Create a `.md` File

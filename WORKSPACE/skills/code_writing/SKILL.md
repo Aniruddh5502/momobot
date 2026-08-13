@@ -1,11 +1,6 @@
 ---
-name: code-writing
-description: >
-    Write high-reliability, deterministic code across C, C++, Python, and shell scripts.
-    This skill implements the NASA/JPL "Power of Ten" rules for safety-critical systems.
-    Trigger this skill for all coding tasks, especially those touching hardware, 
-    simulations, or critical data processing. Prioritize predictability and 
-    verifiability over cleverness or abstraction.
+name: code_writing
+description: Write high-reliability, deterministic code across C, C++, Python, and shell scripts. This skill implements the NASA/JPL "Power of Ten" rules for safety-critical systems. Trigger this skill for all coding tasks, especially those touching hardware, simulations, or critical data processing. Prioritize predictability and verifiability over cleverness or abstraction.
 ---
 
 # Code Writing Skill: High-Reliability & Safety-Critical Standard

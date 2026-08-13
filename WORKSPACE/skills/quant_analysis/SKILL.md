@@ -1,7 +1,6 @@
 ---
-name: quant-analysis
-description: >
-    Identify, validate, and trade based on Alternative Data and OSINT. Use this skill whenever the user wants to perform quantitative analysis, signal hunting, correlation testing, or financial modeling using non-traditional data sources.
+name: quant_analysis
+description: Identify, validate, and trade based on Alternative Data and OSINT. Use this skill whenever the user wants to perform quantitative analysis, signal hunting, correlation testing, or financial modeling using non-traditional data sources.
 ---
 
 # QUANT_ANALYSIS_ULTRA_MANUAL

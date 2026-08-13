@@ -1,12 +1,6 @@
 ---
-name: graph-design
-description: >
-    Create publication-quality matplotlib figures adhering to academic and technical
-    standards. Use this skill whenever the user asks to plot data, visualize results,
-    create a figure or chart, or produce any graph — even if they don't say "publication"
-    or "matplotlib" explicitly. Also trigger for Momobot-specific plots such as token
-    usage over time, memory compaction events, loop iteration metrics, or any agent
-    performance visualization. When in doubt, use this skill.
+name: graph_design
+description: Create publication-quality matplotlib figures adhering to academic and technical standards. Use this skill whenever the user asks to plot data, visualize results, create a figure or chart, or produce any graph — even if they don't say "publication" or "matplotlib" explicitly. Also trigger for Momobot-specific plots such as token usage over time, memory compaction events, loop iteration metrics, or any agent performance visualization. When in doubt, use this skill.
 ---
 
 # Graph Design Skill
