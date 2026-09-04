@@ -27,7 +27,7 @@ SPINNERS = {
 class ThinkingAnimation:
     """A simple spinner animation that runs in a seperate theread"""
     
-    def __init__(self, message:str="Thinking", color_code:str = "\033[38;5;202m", speed:float=5):
+    def __init__(self, message:str="Thinking", color_code:str = "\033[38;2;248;73;53m", speed:float=5):
         self.message = message
         self.color_code = color_code
         self.reset_code = "\033[0m"
