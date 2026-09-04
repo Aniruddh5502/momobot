@@ -22,7 +22,7 @@ A local-first agentic AI assistant built on LangGraph and Ollama. Momobot runs e
 │              ↑            │                   │     │
 │              │          (no tools)            │     │
 │              │            ↓                   │     │
-│            COMPACT ←────────────────────────────    │
+│            COMPACT ←───────────────────────────     │
 │              ↓                                      │
 │             END                                     │
 └─────────────────────────────────────────────────────┘
@@ -386,24 +386,19 @@ momobot/
 
 ---
 
-## Running
+## INSTALLATION & RUNNING GUIDE
 
 ```bash
-# Install dependencies
-pip install langchain-ollama langgraph langchain-core rich prompt_toolkit \
-            playwright ddgs beautifulsoup4 pdf2image pillow ollama python-dotenv \
-            pydantic termcolor
+git clone https://github.com/Aniruddh5502/momobot.git
+cd momobot
+pip install -e .
+momobot-init # with proper settings 
+#   -   model gemma4:31b-cloud
+#   -   worksspace -> keep empty
+#   -   terminal -> for windows use powershell, for linux use bash
 
-playwright install chromium
-
-# Configure paths and prompts
-# Edit setup.py — set WORKSPACE_DIR, MEMORY_DIR, system_prompt, sub_agent_sys_prompt
-
-# Start Ollama and pull your model
-ollama pull gemma4:31b-cloud
-
-# Run
-python main.py
+# Then to use from anywhere run
+momobot
 ```
 
 To exit the session, type `x`, `exit`, `quit`, or `end` at the prompt, or leave the input empty.
@@ -424,26 +419,4 @@ To exit the session, type `x`, `exit`, `quit`, or `end` at the prompt, or leave 
 - Vision analysis in `view_image` uses the same model as reasoning.
 
 
-## Installation Guide
 
-- Prerequisite: Ollama needs to be installed and glm ocr 0.8b model for parsing tool required
-- Prerequisite: Ollma must have the main llm that's going to be hendling the main workload.
-- Another instance of the main model is going to be working as the Subagent. Or you can change that in subagent tool file in TOOLS/
-
-First clone the repo/download the repository
-```bash
-git clone https://github.com/Aniruddh5502/momobot.git
-```
-Then get into the repo. Replace the name if anything else is the folders name.
-```bash
-cd momobot-master
-```
-Then using global python run this command
-```bash
-python momobot-init.py
-```
-Then follow the instructions and after finishing installation
-from anywhere run 
-```bash
-momobot
-```
