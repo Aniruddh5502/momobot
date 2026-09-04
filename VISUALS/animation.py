@@ -21,64 +21,51 @@ SPINNERS = {
     "spiral": ["✽", "✻", "∴", "·", " ", "·", "∴", "✻", "✽"],  # Expanding and contracting
 }
 """
-# Frames for different animations
-SPINNERS = {
-    "sparkle":["✻","✢","·", "✢", "✳", "∗", "✻", "✽"]
-}
 
-THINKING_VERBS = [
-    "Thinking.."
-]
+
 
 class ThinkingAnimation:
-    """
-    A non-blocking terminal animation that runs in a separate thread.
-    Displays a rotating spinner and a random 'thinking verb'.
-    """
-    # \033[38;5;202m            ->  Coral-ish
-    # \033[38;2;255;255;255m    ->  True White
-    # \033[97m                  ->  Bright White
-    def __init__(self, color_code: str = "\033[38;5;202m"): 
+    """A simple spinner animation that runs in a seperate theread"""
+    
+    def __init__(self, message:str="Thinking", color_code:str = "\033[38;5;202m", speed:float=5):
+        self.message = message
         self.color_code = color_code
         self.reset_code = "\033[0m"
         self._stop_event = threading.Event()
-        self._thread: Optional[threading.Thread] = None
+        self._thread:Optional[threading.Thread] = None
+        # Basic spinner frames
+        self.speed  = 1/speed
+        self.frames = ["✽", "✻", "∴", "·", " ", "·", "∴", "✻", "✽"]
+        self.actions = [
+            "Doodling",
+            "Thinking",
+            "Unfolding",
+            "Finding",
+            "Reconstructing"
+        ]
+        self.action = random.choice(self.actions)
         
-        # Choose a random spinner type
-        spinner_type = random.choice(list(SPINNERS.keys()))
-        self.frames = itertools.cycle(SPINNERS[spinner_type])
-        self.verb = random.choice(THINKING_VERBS)
-
     def _animate(self):
+        idx = 0
+        action = self.actions[idx % len(self.actions)]
         while not self._stop_event.is_set():
-            frame = next(self.frames)
-            # \r returns cursor to start of line
-            sys.stdout.write(f"\r{frame} {self.reset_code} {self.verb}")
+            frame = self.frames[idx % len(self.frames)]
+            sys.stdout.write(f"\r{self.color_code}{frame} {self.action} {self.reset_code}")
             sys.stdout.flush()
-            time.sleep(0.2)
-
+            time.sleep(self.speed)
+            idx += 1
+            
     def start(self):
-        self._stopped = False
+        """Start the spinner animation"""
         self._stop_event.clear()
         self._thread = threading.Thread(target=self._animate, daemon=True)
         self._thread.start()
-
+    
     def stop(self):
-        if getattr(self, '_stopped', False):  # ← guard
-            return
+        """Stop the spinner animation"""
         self._stop_event.set()
         if self._thread:
-            self._thread.join()
-        # Clear the line
-        sys.stdout.write("\r" + " " * 50 + "\r")
+            self._thread.join(timeout=0.1)
+        # clear the line
+        sys.stdout.write("\r" + " "*50 + "\r")
         sys.stdout.flush()
-
-def start_thinking():
-    """Convenience function to start the animation."""
-    anim = ThinkingAnimation()
-    anim.start()
-    return anim
-
-def stop_thinking(anim: ThinkingAnimation):
-    """Convenience function to stop the animation."""
-    anim.stop()
