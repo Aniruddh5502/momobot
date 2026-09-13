@@ -1,0 +1,49 @@
+{
+  "goal": "Comprehensive research on BRAC's ecosystem, operations, hiring, and entry points.",
+  "status": "running",
+  "steps": [
+    {
+      "id": "1",
+      "task": "Research BRAC's scope of operations across Rural, Urban, Finance, Education, and E-commerce/Retail sectors.",
+      "status": "done",
+      "depends_on": [],
+      "result": "Identified operations in Rural (Agri, Dairy, NGO), Cities (Urban Dev), Finance (Bank, Microfinance), Education (University, Schools), and Retail (Aarong).",
+      "error": null
+    },
+    {
+      "id": "2",
+      "task": "Investigate the hiring processes for different arms (BRAC Bank, BRAC University, NGO).",
+      "status": "done",
+      "depends_on": [],
+      "result": "Detailed the processes for BRAC Bank (Tests/Interviews), BRAC University (Formal/Budgeted), and BRAC NGO (CV/Letter of Interest).",
+      "error": null
+    },
+    {
+      "id": "3",
+      "task": "Analyze candidate calibre and preferred profiles (academic, experience, mindset).",
+      "status": "done",
+      "depends_on": [],
+      "result": "Identified distinct profiles: Analytical/Academic for Bank, Academic/Impact-oriented for University, and Grassroots/Social-mission oriented for NGO.",
+      "error": null
+    },
+    {
+      "id": "4",
+      "task": "Identify common entry points and graduate programs (e.g., Management Trainees).",
+      "status": "done",
+      "depends_on": [],
+      "result": "Found MTO program for BRAC Bank and entry-level field roles/research assistant roles for NGO and University.",
+      "error": null
+    },
+    {
+      "id": "5",
+      "task": "Synthesize all findings into a detailed categorized report.",
+      "status": "pending",
+      "depends_on": [],
+      "result": null,
+      "error": null
+    }
+  ],
+  "created_at": "2026-09-13T12:56:51.875045+00:00",
+  "updated_at": "2026-09-13T12:57:55.134390+00:00",
+  "replan_log": []
+}

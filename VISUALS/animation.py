@@ -35,7 +35,7 @@ class ThinkingAnimation:
         self._thread:Optional[threading.Thread] = None
         # Basic spinner frames
         self.speed  = 1/speed
-        self.frames = ["✽", "✻", "∴", "·", " ", "·", "∴", "✻", "✽"]
+        self.frames = ["✽", "✺", "✻", "✹", "✸", "✧", "✦", "✶", "✻", "✺"]
         self.actions = [
             "Doodling",
             "Thinking",
