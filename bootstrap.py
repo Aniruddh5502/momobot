@@ -14,7 +14,6 @@ config = json.loads(config_file.read_text())
 SCRIPT_DIR              =       Path(__file__).parent
 MEMORY_DIR              =       SCRIPT_DIR/"MEMORY"
 CONVERSATION_DIR        =       SCRIPT_DIR/"CONVERSATION"
-#WORKSPACE_DIR           =       Path(config["workspace"])
 WORKSPACE_DIR           =       Path.cwd()
 PROMPT_DIR              =       SCRIPT_DIR/"PROMPT"
 OBSIDIAN_DIR            =       WORKSPACE_DIR/"obsidian"
