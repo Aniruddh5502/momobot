@@ -1,39 +1,4 @@
-"""
-Momobot main agent.
-
-Architecture:
-
-    START
-      ↓
-    USER_INPUT
-      ├── exit ─────────────────────→ END
-      ↓
-    REASONING
-      ├── no tool call ─────────────→ COMPACTION_CHECK
-      ↓
-    PRE_TOOL
-      ↓
-    TOOL_NODE
-      ↓
-    OBSERVE
-      ├── success ──────────────────→ REASONING
-      ├── partial ──────────────────→ REASONING
-      └── failure ──────────────────→ RECOVERY
-                                         ↓
-                                      REASONING
-
-    COMPACTION_CHECK
-      ├── compact ──────────────────→ COMPACT
-      │                                  ↓
-      └── no compact ───────────────→ USER_INPUT
-"""
-
-import sys
-import os
-import json
-import shutil
-import subprocess
-import time
+import sys, os, json, subprocess, time, shutil
 from pathlib import Path
 
 

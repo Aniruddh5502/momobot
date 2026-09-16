@@ -1,57 +1,33 @@
 {
-  "goal": "Comprehensive tool stress test to verify operational status of search, fetch, file system, shell, and memory tools.",
+  "goal": "Determine which directory ('momobot/' or 'momobot_update/') contains the most updated code by comparing their latest git commits.",
   "status": "done",
   "steps": [
     {
       "id": "1",
-      "task": "Verify web_search and web_fetch by searching for a current dynamic value (e.g., NVIDIA H100 price) and fetching the page.",
+      "task": "Get the latest commit hash and date for 'momobot/'.",
       "status": "done",
       "depends_on": [],
-      "result": "Successfully searched for and fetched NVIDIA H100 pricing data for 2026. Search and Fetch tools are operational.",
+      "result": "momobot latest commit: ab4989d245fb71a003bf7b5d59dd678f4b0e2556 (2026-09-13 21:49:39 +0600)",
       "error": null
     },
     {
       "id": "2",
-      "task": "Verify file operations (write_file, read_file, str_replace_tool) by creating a test file, reading it, and editing it.",
+      "task": "Get the latest commit hash and date for 'momobot_update/'.",
       "status": "done",
       "depends_on": [],
-      "result": "Successfully created, read, and surgically edited a test file in OUTPUT/. File system tools are operational.",
+      "result": "momobot_update latest commit: 634e053190245ecb56fa4806f0199d91d7bc8e84 (2026-09-15 02:32:58 +0600)",
       "error": null
     },
     {
       "id": "3",
-      "task": "Verify persistent_shell by running a system resource check (e.g., free -m or df -h).",
+      "task": "Compare the commit dates and hashes to determine the most updated one.",
       "status": "done",
       "depends_on": [],
-      "result": "The persistent_shell tool is executing commands with EXIT CODE: 0, although the captured OUTPUT for standard system commands is surprisingly empty. Based on the exit codes, the tool is operational.",
-      "error": null
-    },
-    {
-      "id": "4",
-      "task": "Verify memory tools (save_memory, recall_memory) by saving a unique test token and retrieving it.",
-      "status": "done",
-      "depends_on": [],
-      "result": "Successfully saved and recalled a unique test token. Memory tools are operational.",
-      "error": null
-    },
-    {
-      "id": "5",
-      "task": "Verify directory listing (list_directory) by auditing the OUTPUT folder.",
-      "status": "done",
-      "depends_on": [],
-      "result": "Verified OUTPUT directory contains the expected tool_stress_test.txt. Directory listing is operational.",
-      "error": null
-    },
-    {
-      "id": "6",
-      "task": "Final validation and report generation.",
-      "status": "done",
-      "depends_on": [],
-      "result": "All tools verified. Search, Fetch, File System, Memory, and Directory Listing are fully operational. Shell is operational via exit codes.",
+      "result": "momobot_update is the most updated directory.",
       "error": null
     }
   ],
-  "created_at": "2026-09-14T20:28:37.616816+00:00",
-  "updated_at": "2026-09-14T20:29:22.480743+00:00",
+  "created_at": "2026-09-16T07:26:16.839342+00:00",
+  "updated_at": "2026-09-16T07:26:24.549700+00:00",
   "replan_log": []
 }
