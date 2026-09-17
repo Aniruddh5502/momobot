@@ -2,7 +2,7 @@ import sys, os, json, subprocess, time, shutil, bootstrap
 
 from pathlib                            import Path
 from typing                             import Annotated, Sequence, TypedDict, Dict
-from langchain_core.messages            import BaseMessage, SystemMessage, HumanMessage
+from langchain_core.messages            import BaseMessage, SystemMessage, HumanMessage, AIMessage
 from langgraph.graph.message            import add_messages, RemoveMessage
 from langgraph.graph                    import StateGraph, START, END
 from langgraph.prebuilt                 import ToolNode
@@ -17,6 +17,7 @@ from TOOLS.basic_tools                  import base_tools
 from TOOLS.subagent_tool                import subagent
 from VISUALS.animation                  import ThinkingAnimation
 from bootstrap                          import system_prompt, compactionPrompt
+from session_manager                    import SessionManager
 
 def _ensure_venv():
     config_file = Path.home() / ".momobot" / "config.json"
@@ -59,7 +60,13 @@ def _ensure_venv():
         ],
     )
 
+from CMD.registry import CommandRegistry
+from CMD.session_cmds import register_session_commands
+
 config = _ensure_venv()
+sm = SessionManager()
+registry = CommandRegistry()
+register_session_commands(registry)
 
 model               = config["model"]
 baseURL             = "http://localhost:11434"
@@ -76,9 +83,11 @@ class AgentState(TypedDict):
     messages    :   Annotated[Sequence[BaseMessage], add_messages]
     summary     :   str
     end         :   str
+    skip        :   bool
     systemInfo  :   dict
     reasoning   :   bool
     token_usages:   int
+    last_action :   str # Tracks 'reasoning', 'command', or 'init'
 
 def make_session():
     bindings = KeyBindings()
@@ -87,7 +96,7 @@ def make_session():
         event.current_buffer.validate_and_handle()
     @bindings.add("enter")
     def _newline(event):
-        event.current_buffer.insert_text("\n")
+        event.current_buffer.insert_text("\\n")
     return PromptSession(key_bindings=bindings, multiline=True,)
 
 session = make_session()
@@ -109,15 +118,20 @@ llm_think = ChatOllama(
 ).bind_tools(tools=base_tools)
 
 def inputNode(state:AgentState)->AgentState:
+    # Reset skip flag immediately so that if we arrived here via a 'skip', 
+    # the NEXT transition can actually proceed to reasoning.
+    state["skip"] = False
+    
     isReasoning = state.get("reasoning", False)
     usages = state.get("token_usages",0)
     if state.get("messages"):
         response = state["messages"][-1]
-        if isReasoning:
-            rawThinking = response.additional_kwargs.get("reasoning_content")
-            console.print(f"{themeChar} Thinking..\n")
+        if isinstance(response, AIMessage):
+            if isReasoning:
+                rawThinking = response.additional_kwargs.get("reasoning_content")
+                console.print(f"{themeChar} Thinking..\\n")
+                console.print(Markdown(str(response.content)))
             console.print(Markdown(str(response.content)))
-        console.print(Markdown(str(response.content)))
         columns, lines = shutil.get_terminal_size(fallback=(80,24))
         gap = max(0, columns-21)
         console.print("\n"," "*gap, f"[dim]Token Usages: {usages}[/dim]")
@@ -126,11 +140,19 @@ def inputNode(state:AgentState)->AgentState:
     user_input = session.prompt("❯  ").strip()
     console.rule(style="dim")
     
+    # Handle Commands via Registry
+    cmd_result = registry.execute(user_input, state, {"sm": sm})
+    if cmd_result is not None:
+        # Ensure skip is handled. We return the result, but we must 
+        # make sure that if 'skip' was True, it doesn't stay True forever.
+        # However, the registry result just updates the state.
+        return cmd_result
+
     # Exit criteria
     if (not user_input or user_input.lower() in {"x", "c", "exit", "quit", "end"}):
         if user_input:
             console.print(f"{themeChar} Bye...")
-        return {"end": "end_loop"}
+        return {"end": "end_loop", "skip":False}
     # Thinking setup
     reasoning_mode = False
     if "/think" in user_input:
@@ -138,11 +160,17 @@ def inputNode(state:AgentState)->AgentState:
         reasoning_mode = True
     return {
         "messages": [HumanMessage(content=user_input)], 
-        "reasoning": reasoning_mode
+        "reasoning": reasoning_mode,
+        "skip":False
     }
 
 def shouldContinue1(state:AgentState):
-    if state["end"] == "end_loop":
+    skip = state.get("skip", False)
+    # We use the state to update the skip value to False for the NEXT turn
+    # by returning a value that effectively clears it.
+    if skip:
+        return "input"
+    if state.get("end") == "end_loop":
         return "end"
     else:
         return "reasoning"
@@ -203,7 +231,7 @@ def compactionNode(state:AgentState)->AgentState:
             existingSummary = state.get("summary","")
             current_compaction_prompt = compactionPrompt
             if existingSummary:
-                current_compaction_prompt += f"\nPrevious summarization:\n{existingSummary}"
+                current_compaction_prompt += f"\\\\nPrevious summarization:\\\\n{existingSummary}"
             
             anim.start()
             response = llm_think.invoke([SystemMessage(content=current_compaction_prompt)]+toCompress)
@@ -211,7 +239,6 @@ def compactionNode(state:AgentState)->AgentState:
             anim.stop()
             removalList = [RemoveMessage(id=m.id) for m in toCompress if m.id]
             console.print(f"{themeChar} [dim green]Compressed {len(toCompress)} msgs. Kept {len(messages) - len(toCompress)} recent[/dim green]")
-            
             
             # Instead of resetting to 0, we estimate a reduction or keep it 
             # for the next reasoningNode to update.
@@ -238,8 +265,9 @@ graph.add_conditional_edges(
     "input",
     shouldContinue1,
     {
-        "end":END,
-        "reasoning":"reasoning",
+        "end": END,
+        "reasoning": "reasoning",
+        "input": "input",
     }
 )
 graph.add_conditional_edges(
@@ -258,7 +286,31 @@ momobot = graph.compile()
 def main():
     console.print("\n"*25)
     console.print(f"{themeChar} \\m")
-    momobot.invoke({"messages":[],"summary":"","end":"","systemInfo":{},"reasoning":False,"token_usages":0})
+    # Initial state for a new session
+    initial_state = {"messages":[],"summary":"","end":"","systemInfo":{},"reasoning":False,"token_usages":0, "last_action": "init"}
+    
+    # Check for session resume
+    if len(sys.argv) > 1:
+        session_name = sys.argv[1]
+        resumed_state = sm.load_session(session_name)
+        if resumed_state:
+            console.print(f"[bold green]Resuming session: {session_name}[/bold green]")
+            initial_state = resumed_state
+        else:
+            console.print(f"[bold red]Session {session_name} not found. Starting fresh.[/bold red]")
+
+    try:
+        result = momobot.invoke(initial_state)
+        messages = result.get("messages", [])
+        if messages:
+            first_msg = messages[0].content if hasattr(messages[0], 'content') else str(messages[0])
+            session_name = first_msg[:50].strip()
+            sm.save_session(session_name, result)
+            console.print(f"[dim]Session saved as: {session_name}[/dim]")
+    except Exception as e:
+        console.print(f"[bold red]Error during execution: {e}[/bold red]")
+    finally:
+        pass
 
 if __name__ == "__main__":
     main()

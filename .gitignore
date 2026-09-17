@@ -30,6 +30,7 @@ ENV/
 output/
 obsidian/
 Finance/
+CONVERSATION/
 
 
 # ANSYS / Simulation files

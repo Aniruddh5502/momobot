@@ -449,7 +449,6 @@ def edit(path: str, old_str: str, new_str: str) -> str:
 from TOOLS.edit                     import  edit
 from TOOLS.shell                    import  shell
 from TOOLS.view                     import  view
-from TOOLS.memory_tools             import  memory_tools
 from TOOLS.taskState                import  task_init
 from TOOLS.taskState                import  task_clear
 from TOOLS.taskState                import  task_replan
@@ -459,7 +458,7 @@ from TOOLS.ocr_tool                 import  ocr_tool
 base_tools = [
     edit, search, web_fetch, listDir, shell, read, write,
     task_init, task_update, task_replan, task_clear
-] + memory_tools
+]
 
 
 from typing import Any, Dict
