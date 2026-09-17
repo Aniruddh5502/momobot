@@ -15,7 +15,7 @@ _NEST    = "[dim]   └─[/dim]"
 
 
 @tool
-def str_replace_tool(path: str, old_str: str, new_str: str) -> str:
+def edit(path: str, old_str: str, new_str: str) -> str:
     """Edit a specific string in a file without rewriting the whole file.
     Use this after reading a file when you want to change a specific section.
     old_str must appear EXACTLY once in the file.

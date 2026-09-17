@@ -13,16 +13,19 @@ config = json.loads(config_file.read_text())
 
 SCRIPT_DIR              =       Path(__file__).parent
 MEMORY_DIR              =       SCRIPT_DIR/"MEMORY"
+STATE_DIR               =       SCRIPT_DIR/"STATE"
 CONVERSATION_DIR        =       SCRIPT_DIR/"CONVERSATION"
 WORKSPACE_DIR           =       Path.cwd()
 PROMPT_DIR              =       SCRIPT_DIR/"PROMPT"
-OBSIDIAN_DIR            =       WORKSPACE_DIR/"obsidian"
 OUTPUTS_DIR             =       WORKSPACE_DIR/"OUTPUT"
 CWD                     =       Path.cwd
 paths_to_check  =   [
     SCRIPT_DIR,
-    PROMPT_DIR,
     MEMORY_DIR,
+    STATE_DIR,
+    CONVERSATION_DIR,
+    WORKSPACE_DIR,
+    PROMPT_DIR,
     OUTPUTS_DIR,
 ]
 
@@ -54,6 +57,7 @@ soul_file       = PROMPT_DIR / "SOUL.md"
 skills_file     = PROMPT_DIR / "SKILL.md"
 memory_file     = MEMORY_DIR / "MEMORY.md"
 sub_sys_file    = PROMPT_DIR / "SUB_SOUL.md"
+compactionPrompt= PROMPT_DIR / "compaction.md"
 
 # ======================================================================
 # THIRD: Create files if they don't exist

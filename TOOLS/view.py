@@ -144,7 +144,7 @@ def view_image(
     return f"Image analysis {meta}:\n\n{description}"
 
 
-view_image_tool = StructuredTool(
+view = StructuredTool(
     name="view_image",
     func=view_image,
     args_schema=ViewImageInput,
