@@ -1,0 +1,9 @@
+{
+    "provider": "ollama",
+    "model": "gemma4:31b-cloud",
+    "base_url": "http://localhost:11434",
+    "recent_window": 6,
+    "system_prompt": "prompts/soul.md",
+    "compaction_prompt": "prompts/compaction.md",
+    "user_details": "prompts/user.md"
+}

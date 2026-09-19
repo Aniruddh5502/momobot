@@ -3,8 +3,8 @@ from typing import TypedDict, Literal, List, Optional, Dict, Any
 from pathlib import Path
 from langchain_core.tools import tool
 from rich.console import Console
-from bootstrap import STATE_DIR, WORKSPACE_DIR
-from TOOLS.response_handler import create_tool_response
+from utils.bootstrap import STATE_DIR, WORKSPACE_DIR
+from tools.response_handler import create_tool_response
 console = Console()
 try:
     import fcntl
@@ -15,7 +15,7 @@ except ImportError:
 # ============================================================================
 # STYLING
 # ============================================================================
-theme_char = "✻"
+theme_char = "✽"
 
 # ============================================================================
 # CONFIGURATION
@@ -159,12 +159,14 @@ def load() -> Dict[str, Task]:
             else:
                 return {}
         except Exception as e:
-            console.print(f"{theme_char} [red]Error loading state: {e}[/red]")
+            if __name__ == "__main__":
+                console.print(f"{theme_char} [red]Error loading state: {e}[/red]")
             backup = stateFile.with_suffix(".json.bak")
             if backup.exists():
                 try:
                     raw_data = json.loads(backup.read_text())
-                    console.print(f"{theme_char} [yellow]Recovered state from backup.[/yellow]")
+                    if __name__ == "__main__":
+                        console.print(f"{theme_char} [yellow]Recovered state from backup.[/yellow]")
                     return {tid: normalize_task(tval) for tid, tval in raw_data.items()}
                 except Exception:
                     return {}
@@ -280,9 +282,12 @@ def task_init(tasks: List[Dict[str, Any]]) -> dict:
     try:
         save(new_state)
     except Exception as e:
+        console.print(f"{theme_char} [dim red]Plan initialization failed: {e}[/dim red]")
         return create_tool_response(status="error", error_code="SAVE_FAILED", error_message=str(e))
 
+    
     console.print(f"{theme_char} [dim]Project plan initialized with {len(new_state)} tasks.[/dim]")
+    
     return create_tool_response(
         status="success",
         data={"tasks_initialized": list(new_state.keys())},
@@ -310,10 +315,12 @@ def task_update(id: str, action: Literal["start", "submit"], evidence: Optional[
         if action == "start":
             allowed, reason = can_start(state, id)
             if not allowed:
+                console.print(f"{theme_char} [dim red]Task start failed: {reason}[/dim red]")
                 return create_tool_response(status="error", error_code="PRECONDITION_FAILED", error_message=reason)
 
             state[id]["status"] = "in_progress"
             save(state)
+            console.print(f"{theme_char} [dim]Task {id} started successfully[/dim]")
             return create_tool_response(
                 status="success",
                 data={"id": id, "status": "in_progress"},
@@ -333,6 +340,7 @@ def task_update(id: str, action: Literal["start", "submit"], evidence: Optional[
         if success:
             state[id]["status"] = "done"
             save(state)
+            console.print(f"{theme_char}    [dim]Verification by harness succesfull. Marking task as done[/dim] [green]ID: {id}[/green]")
             return create_tool_response(
                 status="success",
                 data={"id": id, "status": "done", "verification": "Passed"},
@@ -341,6 +349,7 @@ def task_update(id: str, action: Literal["start", "submit"], evidence: Optional[
         else:
             state[id]["status"] = "failed"
             save(state)
+            console.print(f"{theme_char} [red]Verification failed for task {id}[/red]")
             return create_tool_response(
                 status="error",
                 data={"id": id, "output": output},
@@ -349,7 +358,7 @@ def task_update(id: str, action: Literal["start", "submit"], evidence: Optional[
                 recovery_hint=f"Review the output and call task_replan with this task_id. Output: {output}"
             )
     except Exception as e:
-        console.print(f"{theme_char} [red]task_update failed: {e}[/red]")
+        console.print(f"{theme_char} [dim red]Task update failed: {e}[/dim red]")
         return create_tool_response(status="error", error_code="INTERNAL_ERROR", error_message=str(e))
 
 
@@ -361,10 +370,14 @@ def task_replan(failed_task_id: str, reason: str, new_tasks: List[Dict[str, Any]
     state = load()
 
     if failed_task_id not in state or state[failed_task_id].get("status") != "failed":
-        return create_tool_response(status="error", error_code="INVALID_TASK_STATE", error_message="Task must be 'failed' to replan.")
+        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", 
+                                    error_code="INVALID_TASK_STATE", 
+                                    error_message="Task must be 'failed' to replan.")
 
     if not new_tasks:
-        return create_tool_response(status="error", error_code="EMPTY_REPLAN", error_message="new_tasks is empty.")
+        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", 
+                                    error_code="EMPTY_REPLAN", 
+                                    error_message="new_tasks is empty.")
 
     try:
         candidate = dict(state)
@@ -380,27 +393,33 @@ def task_replan(failed_task_id: str, reason: str, new_tasks: List[Dict[str, Any]
             candidate[norm_t["id"]] = norm_t
             added_ids.append(norm_t["id"])
     except TaskValidationError as e:
-        return create_tool_response(status="error", error_code="INVALID_TASK", error_message=str(e))
+        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", 
+                                    error_code="INVALID_TASK", 
+                                    error_message=str(e))
 
     missing = _missing_dependencies(candidate)
     if missing:
-        return create_tool_response(status="error", error_code="MISSING_DEPENDENCY", error_message=f"Tasks reference unknown dependencies: {missing}")
+        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", 
+                                    error_code="MISSING_DEPENDENCY", 
+                                    error_message=f"Tasks reference unknown dependencies: {missing}")
 
     cycle = _detect_cycle(candidate)
     if cycle:
-        return create_tool_response(status="error", error_code="DEPENDENCY_CYCLE", error_message=f"Dependency cycle detected: {' -> '.join(cycle)}")
+        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", 
+                                    error_code="DEPENDENCY_CYCLE", 
+                                    error_message=f"Dependency cycle detected: {' -> '.join(cycle)}")
 
     for aid in added_ids:
         if failed_task_id in candidate[aid].get("depends_on", []):
             return create_tool_response(
-                status="error", error_code="INVALID_DEPENDENCY",
-                error_message=f"New task '{aid}' depends on superseded task '{failed_task_id}', which can never become 'done'."
-            )
+                status="error", 
+                error_code="INVALID_DEPENDENCY",
+                error_message=f"New task '{aid}' depends on superseded task '{failed_task_id}', which can never become 'done'.")
 
     try:
         save(candidate)
     except Exception as e:
-        return create_tool_response(status="error", error_code="SAVE_FAILED", error_message=str(e))
+        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", error_code="SAVE_FAILED", error_message=str(e))
 
     log_entry = f"Replan: Task {failed_task_id} failed. Reason: {reason}. Added {len(new_tasks)} new tasks: {added_ids}.\\n"
     try:
@@ -409,7 +428,7 @@ def task_replan(failed_task_id: str, reason: str, new_tasks: List[Dict[str, Any]
     except Exception:
         pass  # a logging failure shouldn't fail the whole replan
 
-    return create_tool_response(
+    console.print(f"{theme_char} [dim]Task replanned successfully[/dim]"); return create_tool_response(
         status="success",
         data={"superseded": failed_task_id, "added": added_ids},
         metadata={"state_delta": "Plan updated via replan"}
@@ -426,7 +445,8 @@ def task_clear() -> dict:
         if backup.exists():
             backup.unlink()
     except Exception as e:
-        return create_tool_response(status="error", error_code="CLEAR_FAILED", error_message=str(e))
+        console.print(f"{theme_char} [dim red]Task state clear failed: {e}[/dim red]")
+        return create_tool_response(status="error", error_code="CLEAR_ERROR", error_message=str(e))
 
     console.print(f"{theme_char} [dim]Task state cleared successfully.[/dim]")
     return create_tool_response(
@@ -435,29 +455,56 @@ def task_clear() -> dict:
         metadata={"state_delta": "Full state reset"}
     )
 
+# ============================================================================
+# SESSION MANAGEMENT
+# ============================================================================
 
-if __name__ == "__main__":
-    print("Testing task_init...")
-    print(task_init.invoke({"tasks": [{"id": "T1", "name": "Test", "deliverable": "file.txt", "verify_cmd": "ls file.txt"}]}))
+class SessionManager:
+    """
+    Handles persisting the conversation history to disk so a user can
+    resume a chat later. 
+    """
+    def __init__(self):
+        # Use a dedicated sessions folder in the root project directory
+        # instead of nesting it inside the states folder.
+        from utils.bootstrap import root
+        self.sessions_dir = root / "sessions"
+        self.sessions_dir.mkdir(parents=True, exist_ok=True)
 
-    print("\\nTesting task_init validation (missing verify_cmd) -> should error cleanly...")
-    print(task_init.invoke({"tasks": [{"id": "T2", "name": "Bad task"}]}))
+    def save_session(self, session_id: str, messages: List[Any]):
+        path = self.sessions_dir / f"{session_id}.json"
+        # Since messages are LangChain objects, we use a simple serialization
+        serialized = []
+        for m in messages:
+            serialized.append({"type": type(m).__name__, "content": m.content})
+        
+        with open(path, "w") as f:
+            json.dump(serialized, f, indent=4)
 
-    print("\\nTesting task_init cycle detection -> should error cleanly...")
-    print(task_init.invoke({"tasks": [
-        {"id": "A", "name": "A", "verify_cmd": "true", "depends_on": ["B"]},
-        {"id": "B", "name": "B", "verify_cmd": "true", "depends_on": ["A"]},
-    ]}))
+    def load_session(self, session_id: str) -> List[Any]:
+        path = self.sessions_dir / f"{session_id}.json"
+        if not path.exists():
+            return []
+        
+        with open(path, "r") as f:
+            data = json.load(f)
+        
+        from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
+        mapping = {"HumanMessage": HumanMessage, "AIMessage": AIMessage, "SystemMessage": SystemMessage}
+        
+        if isinstance(data, dict) and "messages" in data:
+            messages_list = data["messages"]
+        elif isinstance(data, list):
+            messages_list = data
+        else:
+            return []
+        
+        return [mapping.get(item["type"], HumanMessage)(content=item["content"]) for item in messages_list if isinstance(item, dict)]
 
-    print("\\nRe-initializing a valid plan...")
-    print(task_init.invoke({"tasks": [{"id": "T1", "name": "Test", "deliverable": "file.txt", "verify_cmd": "dir"}]}))
+    def list_sessions(self) -> List[str]:
+        return [f.stem for f in self.sessions_dir.glob("*.json")]
 
-    print("\\nTesting task_update start...")
-    print(task_update.invoke({"id": "T1", "action": "start"}))
-    print("\\nTesting task_update submit...")
-    print(task_update.invoke({"id": "T1", "action": "submit", "evidence": "created file.txt via touch"}))
-    print("\\nTesting task_status...")
-    print(f"\\n\\nLoading task state: ",str(json.dumps(load(), indent=2)))
-    print("\\nTesting task_clear..")
-    print(task_clear.invoke({}))
-    
+    def delete_session(self, session_id: str):
+        path = self.sessions_dir / f"{session_id}.json"
+        if path.exists():
+            path.unlink()

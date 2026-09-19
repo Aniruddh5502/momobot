@@ -1,34 +1,27 @@
 [build-system]
-requires = ["setuptools>=64"]
+requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "momobot"
 version = "0.1.0"
+description = "Cynical AI Agent with deterministic verification harness"
+readme = "README.md"
+requires-python = ">=3.10"
 dependencies = [
-    "langchain_core",
-    "rich",
-    "dotenv",
-    "pydantic",
-    "langchain_ollama",
-    "ollama",
+    "langchain-core",
+    "langchain-ollama",
     "langgraph",
-    "playwright",
-    "bs4",
-    "prompt_toolkit",
-    "Pillow",
-    "pdf2image",
-    "duckduckgo-search",
-    "ddgs"
+    "matplotlib",
 ]
 
-[project.scripts]
-momobot = "main:main"
-momobot-init = "momobot_init:main"
-
 [tool.setuptools]
-py-modules = ["main", "momobot_init", "bootstrap"]
-packages = ["TOOLS", "VISUALS"]
+packages = ["core", "utils", "tools", "ui", "cmd"]
+py-modules = ["bootstrap", "config"]
 
-[tool.setuptools.package-dir]
-"" = "."
+[project.scripts]
+momobot = "ui.cli:main"
+
+
+[project.urls]
+Homepage = "https://github.com/Aniruddh5502/momobot"

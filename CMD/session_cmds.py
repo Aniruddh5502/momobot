@@ -1,107 +1,376 @@
 import re
-from rich.console import Console
-from typing import Dict, Any
-from CMD.registry import CommandRegistry
+import uuid
+import sqlite3
+from datetime import datetime, timezone
+from typing import Dict, Any, List
 
-# Shared console for command output
+from rich.console import Console
+from rich.markdown import Markdown
+
+from cmd.registry import CommandRegistry, CommandResult
+from bootstrap import sessions_db
+
 console = Console()
 
-def register_session_commands(registry: CommandRegistry):
-    """Registers all session-related commands to the provided registry."""
-    
-    @registry.register("/session")
-    def handle_sessions(args: str, state: Dict[str, Any], context: Dict[str, Any]):
-        sm = context.get("sm")
-        if not sm:
-            console.print("[bold red]Error: SessionManager not found in context.[/bold red]")
-            return {"skip": False}
+theme_char  = "✽"
+book_cloth  = "#CC785C"
+focus       = "#61AAF2"
+cloud_light = "#BFBFBA"
+white       = "#FFFFFF"
 
-        # If args is empty or just "/sessions", list sessions
-        # The registry handles both /session and /sessions if registered, 
-        # but here we treat /session with no args as a list command.
-        if not args or args.strip() == "s": # handle /sessions if routed here
-            sessions = sm.list_sessions()
-            if not sessions:
-                console.print("\n[yellow]No saved sessions found.[/yellow]")
-                return {"skip": True} 
-            
-            console.print("\n[bold]Recent Sessions:[/bold]")
-            for i, name in enumerate(sessions, 1):
-                console.print(f" {i}. [cyan]{name}[/cyan]")
-            console.print("[dim]Use /session{i} to resume one of these.\n[/dim]")
-            return {"skip": True}
 
-        # Handle /session{id} logic
-        # args here would be "1", "2", etc.
-        match = re.match(r"(\d+)", args.strip())
-        if match:
-            idx = int(match.group(1)) - 1
-            sessions = sm.list_sessions()
-            if 0 <= idx < len(sessions):
-                target = sessions[idx]
-                resumed = sm.load_session(target)
-                if resumed:
-                    console.print(f"[bold green]Resuming session: {target}[/bold green]")
-                    
-                    # To truly replace history in an 'add_messages' state, 
-                    # we must remove all current messages first.
-                    from langgraph.graph.message import RemoveMessage
-                    current_messages = state.get("messages", [])
-                    removal_list = [RemoveMessage(id=m.id) for m in current_messages if m.id]
-                    resumed_messages = resumed.get("messages", [])
-                    
-                    return {
-                        **resumed, 
-                        "messages": removal_list + resumed_messages, 
-                        "end": "", 
-                        "skip": True
-                    }
-                else:
-                    console.print(f"[bold red]Failed to load session {target}[/bold red]")
+# ---------------------------------------------------------------------------
+# Session metadata (SQLite) — lives alongside the LangGraph checkpoints
+# ---------------------------------------------------------------------------
+
+def _connect() -> sqlite3.Connection:
+    conn = sqlite3.connect(str(sessions_db), check_same_thread=False)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS session_meta (
+            thread_id  TEXT PRIMARY KEY,
+            name       TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL
+        )
+    """)
+    conn.commit()
+    return conn
+
+
+def _now() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def _derive_name(first_message: str) -> str:
+    name = (first_message or "").strip().replace("\n", " ")
+    if len(name) > 50:
+        name = name[:50].rstrip() + "…"
+    return name or "(untitled)"
+
+
+def register_session_name(thread_id: str, first_message: str) -> None:
+    now = _now()
+    created = False
+    try:
+        conn = _connect()
+        try:
+            cur = conn.cursor()
+            cur.execute("SELECT 1 FROM session_meta WHERE thread_id=?", (thread_id,))
+            if cur.fetchone() is None:
+                cur.execute(
+                    "INSERT INTO session_meta(thread_id, name, created_at, updated_at) "
+                    "VALUES (?, ?, ?, ?)",
+                    (thread_id, _derive_name(first_message), now, now),
+                )
+                created = True
             else:
-                console.print(f"[bold red]Invalid session index {idx+1}[/bold red]")
-        else:
-            console.print("[bold red]Usage: /session[index] or /session to list.[/bold red]")
-            
-        return {"skip": True}
+                cur.execute(
+                    "UPDATE session_meta SET updated_at=? WHERE thread_id=?",
+                    (now, thread_id),
+                )
+            conn.commit()
+        finally:
+            conn.close()
+    except Exception:
+        return
 
-    @registry.register("/sessions")
-    def handle_sessions_alias(args: str, state: Dict[str, Any], context: Dict[str, Any]):
-        # Alias for /session
+    # Only bother pruning when we actually added a session — no point doing
+    # the SELECT DISTINCT on every turn.
+    if created:
+        try:
+            n = prune_sessions()
+            if n:
+                console.print(f"[dim]Pruned {n} old session(s) (keeping {MAX_SESSIONS}).[/dim]")
+        except Exception:
+            pass
+
+
+def _list_sessions() -> List[Dict[str, str]]:
+    """Returns saved sessions, newest first.
+
+    Thread IDs come from LangGraph's `checkpoints` table. Names come from
+    `session_meta`; anything without a row (sessions that were created
+    before naming was introduced, or that never got a user message) simply
+    has name=None and the caller decides how to display it.
+    """
+    if not sessions_db.exists():
+        return []
+
+    try:
+        conn = _connect()
+    except sqlite3.Error:
+        return []
+
+    try:
+        cur = conn.cursor()
+        try:
+            cur.execute("SELECT DISTINCT thread_id FROM checkpoints")
+            thread_ids = [row[0] for row in cur.fetchall()]
+        except sqlite3.OperationalError:
+            thread_ids = []
+
+        cur.execute("SELECT thread_id, name, created_at, updated_at FROM session_meta")
+        meta = {
+            r[0]: {"name": r[1], "created_at": r[2], "updated_at": r[3]}
+            for r in cur.fetchall()
+        }
+    finally:
+        conn.close()
+
+    sessions = [
+        {"thread_id": tid, "name": None, "created_at": "", "updated_at": "", **meta.get(tid, {})}
+        for tid in thread_ids
+    ]
+    sessions.sort(key=lambda s: s["updated_at"] or s["created_at"] or "", reverse=True)
+    return sessions
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Deletion & pruning
+# ---------------------------------------------------------------------------
+
+MAX_SESSIONS = 10  # keep the newest N; prune the rest
+
+
+def _delete_session_data(thread_id: str) -> None:
+    """Remove every trace of a session: LangGraph checkpoints, pending writes,
+    and our own meta row. Safe to call on a thread that doesn't exist."""
+    conn = _connect()
+    try:
+        cur = conn.cursor()
+
+        # LangGraph SqliteSaver stores checkpoints and pending writes in
+        # two separate tables, both keyed by thread_id. Older DB files may
+        # predate the `writes` table, so tolerate that.
+        for table in ("checkpoints", "writes"):
+            try:
+                cur.execute(f"DELETE FROM {table} WHERE thread_id=?", (thread_id,))
+            except sqlite3.OperationalError:
+                pass
+
+        cur.execute("DELETE FROM session_meta WHERE thread_id=?", (thread_id,))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def prune_sessions(max_keep: int = MAX_SESSIONS) -> int:
+    """Delete oldest sessions beyond `max_keep`. Returns how many were removed.
+
+    Sessions are ordered by `updated_at` descending, so anything with an
+    empty timestamp (legacy rows) sorts to the bottom and gets pruned first.
+    """
+    sessions = _list_sessions()
+    if len(sessions) <= max_keep:
+        return 0
+
+    removed = 0
+    for s in sessions[max_keep:]:
+        try:
+            _delete_session_data(s["thread_id"])
+            removed += 1
+        except Exception as e:
+            console.print(f"[dim red]Could not prune {s['thread_id']}: {e}[/dim red]")
+    return removed
+
+
+def _save_current(ui, state: Dict[str, Any]) -> None:
+    try:
+        ui.agent.app.update_state(
+            {"configurable": {"thread_id": ui.current_thread_id}},
+            state,
+        )
+    except Exception as e:
+        console.print(f"[dim]Note: could not archive current session: {e}[/dim]")
+
+
+def _empty_state() -> Dict[str, Any]:
+    return {
+        "messages": [],
+        "summary": "",
+        "token_usages": 0,
+        "end": "",
+        "systemInfo": {},
+        "reasoning": False,
+        "last_action": "init",
+    }
+
+
+# ---------------------------------------------------------------------------
+# Session commands
+# ---------------------------------------------------------------------------
+
+def handle_sessions(args: str, state: Dict[str, Any], context: Dict[str, Any]) -> CommandResult:
+    ui = context.get("ui")
+    if ui is None:
+        console.print("[bold red]Error: UI context not found.[/bold red]")
+        return CommandResult()
+
+    args = args.strip()
+
+    # -- List mode --
+    if not args:
+        sessions = _list_sessions()
+        if not sessions:
+            console.print("\n[yellow]No saved sessions found.[/yellow]")
+            return CommandResult()
+
+        console.print("\n")
+        console.print(Markdown("# RECENT SESSIONS"))
+        console.print("\n")
+        for i, s in enumerate(sessions, 1):
+            current = s["thread_id"] == ui.current_thread_id
+            marker = " [bold green]●[/bold green]" if current else ""
+
+            # Named sessions: show the friendly name. Unnamed (legacy) ones:
+            # just fall back to the thread_id so the row is still usable.
+            label = s["name"] if s["name"] else s["thread_id"]
+
+            console.print(
+                f" [{book_cloth}]{i:>4}[/{book_cloth}]  "
+                f"[{cloud_light}]{label}[/{cloud_light}]{marker}"
+            )
+        console.print("[dim]\nUse /session{i} to resume one of these.\n[/dim]")
+        return CommandResult()
+
+    # -- Resume mode: /session{index} --
+    match = re.match(r"(\d+)", args)
+    if not match:
+        console.print("[bold red]Usage: /session[index] or /session to list.[/bold red]")
+        return CommandResult()
+
+    idx = int(match.group(1)) - 1
+    sessions = _list_sessions()
+    if not (0 <= idx < len(sessions)):
+        console.print(f"[bold red]Invalid session index {idx + 1}[/bold red]")
+        return CommandResult()
+
+    target = sessions[idx]
+    target_tid = target["thread_id"]
+
+    _save_current(ui, state)
+
+    ui.current_thread_id = target_tid
+    snapshot = ui.agent.app.get_state({"configurable": {"thread_id": target_tid}})
+    new_state = dict(snapshot.values) if snapshot and snapshot.values else {}
+
+    for k, v in _empty_state().items():
+        new_state.setdefault(k, v)
+    new_state["last_action"] = "resume"
+
+    label = target["name"] or target_tid
+    console.print(
+        f"\n{theme_char}  [dim]Resuming[/dim] "
+        f"[{focus}]{label}[/{focus}] "
+        f"[dim]({target_tid}) — {len(new_state['messages'])} messages[/dim]\n"
+    )
+
+    return CommandResult(state=new_state, render=True)
+
+
+# ---------------------------------------------------------------------------
+# Registration
+# ---------------------------------------------------------------------------
+
+def register_session_commands(registry: CommandRegistry) -> None:
+
+    @registry.register("/help", description="Lists available commands and usages")
+    def handle_help(args: str, state: Dict[str, Any], context: Dict[str, Any]) -> CommandResult:
+        cmds = registry.list_commands()
+        console.print("\n[bold cyan]Momobot Available Commands:\n[/bold cyan]")
+        if not cmds:
+            console.print("[yellow]No commands registered.[/yellow]")
+            return CommandResult()
+
+        max_len = max(len(c) for c in cmds.keys()) + 4
+        for c in sorted(cmds.keys()):
+            console.print(
+                f"  [bold]{c:<{max_len}}[/bold] [bold]❱[/bold] "
+                f"[dim white]{cmds[c]}[/dim white]"
+            )
+        console.print("[dim]\nUse these commands to manage your session and agent state.\n\n[/dim]")
+        return CommandResult()
+
+    @registry.register("/session", description="Resumes a session by index (EX: /session1).")
+    def _session_wrapper(args: str, state: Dict[str, Any], context: Dict[str, Any]) -> CommandResult:
         return handle_sessions(args, state, context)
 
-    @registry.register("/clear")
-    def handle_clear(args: str, state: Dict[str, Any], context: Dict[str, Any]):
-        sm = context.get("sm")
-        if not sm:
-            console.print("[bold red]Error: SessionManager not found in context.[/bold red]")
-            return {"skip": False}
+    @registry.register("/sessions", description="Lists all saved sessions.")
+    def _sessions_alias(args: str, state: Dict[str, Any], context: Dict[str, Any]) -> CommandResult:
+        return handle_sessions(args, state, context)
 
-        # 1. Save current state as a session before clearing
-        messages = state.get("messages", [])
-        if messages:
-            from langgraph.graph.message import RemoveMessage
-            # Use the first message content as a default session name
-            first_content = messages[0].content if hasattr(messages[0], 'content') else str(messages[0])
-            session_name = first_content[:50].strip() or "cleared_session"
-            sm.save_session(session_name, state)
-            console.print(f"[dim]Current session archived as: {session_name}[/dim]")
-            
-            # To truly clear messages in an 'add_messages' annotated state, 
-            # we must provide a list of RemoveMessage objects for existing IDs.
-            removal_list = [RemoveMessage(id=m.id) for m in messages if m.id]
-            console.print("[bold yellow]Session cleared. Starting fresh![/bold yellow]")
-            return {
-                "messages": removal_list, 
-                "summary": "", 
-                "token_usages": 0, 
-                "skip": True
-            }
-        
-        console.print("[bold yellow]Session cleared. Starting fresh![/bold yellow]")
-        return {
-            "messages": [], 
-            "summary": "", 
-            "token_usages": 0, 
-            "skip": True
-        }
+    @registry.register("/clear", description="Archives current session & starts fresh conversation.")
+    def handle_clear(args: str, state: Dict[str, Any], context: Dict[str, Any]) -> CommandResult:
+        ui = context.get("ui")
+        if ui is None:
+            console.print("[bold red]Error: UI context not found.[/bold red]")
+            return CommandResult()
+
+        _save_current(ui, state)
+
+        old_tid = ui.current_thread_id
+        ui.current_thread_id = str(uuid.uuid4())[:8]
+
+        console.print(f"\n{theme_char}  [dim]Session {old_tid} archived.[/dim]")
+        console.print(
+            f"\n{theme_char}  [bold {book_cloth}]New session started: "
+            f"[{focus}]{ui.current_thread_id}[/{focus}]\n[/bold {book_cloth}]"
+        )
+
+        return CommandResult(state=_empty_state())
+    
+    @registry.register("/delete", description="Deletes a session by index (EX: /delete 3).")
+    def handle_delete(args: str, state: Dict[str, Any], context: Dict[str, Any]) -> CommandResult:
+        ui = context.get("ui")
+        if ui is None:
+            console.print("[bold red]Error: UI context not found.[/bold red]")
+            return CommandResult()
+
+        match = re.match(r"(\d+)", args.strip())
+        if not match:
+            console.print("[bold red]Usage: /delete {index}  (see /sessions for indexes).[/bold red]")
+            return CommandResult()
+
+        idx = int(match.group(1)) - 1
+        sessions = _list_sessions()
+        if not (0 <= idx < len(sessions)):
+            console.print(f"[bold red]Invalid session index {idx + 1}[/bold red]")
+            return CommandResult()
+
+        target = sessions[idx]
+        if target["thread_id"] == ui.current_thread_id:
+            console.print(
+                "[bold red]Can't delete the active session.[/bold red] "
+                "[dim]Run /clear first, then delete it.[/dim]"
+            )
+            return CommandResult()
+
+        label = target["name"] or target["thread_id"]
+        try:
+            _delete_session_data(target["thread_id"])
+        except Exception as e:
+            console.print(f"[bold red]Delete failed:[/bold red] {e}")
+            return CommandResult()
+
+        console.print(f"{theme_char} [dim]Deleted session[/dim] [{cloud_light}]{label}[/{cloud_light}]")
+        return CommandResult()
+
+    @registry.register("/prune", description=f"Deletes all but the newest {MAX_SESSIONS} sessions.")
+    def handle_prune(args: str, state: Dict[str, Any], context: Dict[str, Any]) -> CommandResult:
+        try:
+            n = prune_sessions()
+        except Exception as e:
+            console.print(f"[bold red]Prune failed:[/bold red] {e}")
+            return CommandResult()
+
+        if n == 0:
+            console.print(f"[dim]Nothing to prune — you have ≤ {MAX_SESSIONS} sessions.[/dim]")
+        else:
+            console.print(
+                f"{theme_char} [dim]Pruned {n} session(s); "
+                f"kept the newest {MAX_SESSIONS}.[/dim]"
+            )
+        return CommandResult()
