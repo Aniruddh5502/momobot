@@ -6,6 +6,10 @@ import json
 # Setting workspace with respect to the location where momobot is invoked
 root            =   Path(__file__).parent
 WORKSPACE_DIR   =   Path.cwd() 
+
+STATE_DIR = root / "states"
+STATE_DIR.mkdir(parents=True, exist_ok=True)     
+
 soul_file       =   root / "prompts" / "soul.md"
 
 sessions_dir    =   root / "sessions"

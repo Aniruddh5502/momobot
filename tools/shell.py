@@ -27,14 +27,9 @@ import threading
 import time
 
 from langchain_core.tools import tool
-from rich.console import Console
 from tools.response_handler import create_tool_response
 
 from bootstrap import WORKSPACE_DIR, config
-
-_console = Console()
-_BULLET = "✻ "
-_NEST = "[dim]   └─[/dim]"
 
 workspace = WORKSPACE_DIR
 IS_WINDOWS = platform.system() == "Windows"
@@ -44,7 +39,7 @@ MAX_OUTPUT = 4000  # characters (stdout+stderr)
 
 
 # ---------------------------------------------------------------------
-# Shared: build the create_tool_response payload, truncate, console log
+# Shared: build the create_tool_response payload, truncate
 # ---------------------------------------------------------------------
 def _finalize(command, exit_code, output, elapsed, extra_metadata=""):
     truncated = False
@@ -53,26 +48,7 @@ def _finalize(command, exit_code, output, elapsed, extra_metadata=""):
         output = output[:MAX_OUTPUT]
         truncated = True
 
-    display = f"EXIT CODE: {exit_code}\nELAPSED: {elapsed:.2f}s\n"
-    display += f"OUTPUT:\n{output.rstrip()}\n" if output.strip() else "OUTPUT: (none)\n"
-    if truncated:
-        display += f"[TRUNCATED: {orig_len - MAX_OUTPUT:,} chars omitted]\n"
-
     shell_label = "powershell" if IS_WINDOWS else "bash"
-    
-    # Log to console regardless of context
-    _console.print(f"{shell_label} $/> {command}")
-    display = f"EXIT CODE: {exit_code}\nELAPSED: {elapsed:.2f}s\n"
-    display += f"OUTPUT:\n{output.rstrip()}\n" if output.strip() else "OUTPUT: (none)\n"
-    if truncated:
-        display += f"[TRUNCATED: {orig_len - MAX_OUTPUT:,} chars omitted]\n"
-    
-    _console.print(display)
-
-    if __name__ == "__main__":
-        # Use standard print to avoid rich's Windows encoding issues in simple tests
-        print(f"{shell_label} $/> {command}")
-        print(f"Output: \n{display}")
 
     return create_tool_response(
         status="success",
@@ -369,6 +345,8 @@ shell.description = (
 
 
 if __name__ == "__main__":
+    # Standalone test harness. Uses plain print() — this block only runs when
+    # the file is executed directly (python shell.py), never via the agent.
     print("Testing a normal command...")
     print(shell.invoke({"command": "echo hello" if not IS_WINDOWS else "Write-Output hello"}))
 

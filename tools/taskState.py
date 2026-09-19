@@ -2,20 +2,14 @@ import json, os, subprocess, tempfile
 from typing import TypedDict, Literal, List, Optional, Dict, Any
 from pathlib import Path
 from langchain_core.tools import tool
-from rich.console import Console
 from utils.bootstrap import STATE_DIR, WORKSPACE_DIR
 from tools.response_handler import create_tool_response
-console = Console()
+
 try:
     import fcntl
     _HAS_FCNTL = True
 except ImportError:
     _HAS_FCNTL = False
-
-# ============================================================================
-# STYLING
-# ============================================================================
-theme_char = "✽"
 
 # ============================================================================
 # CONFIGURATION
@@ -158,15 +152,11 @@ def load() -> Dict[str, Task]:
                 return {tid: normalize_task(tval) for tid, tval in raw_data.items()}
             else:
                 return {}
-        except Exception as e:
-            if __name__ == "__main__":
-                console.print(f"{theme_char} [red]Error loading state: {e}[/red]")
+        except Exception:
             backup = stateFile.with_suffix(".json.bak")
             if backup.exists():
                 try:
                     raw_data = json.loads(backup.read_text())
-                    if __name__ == "__main__":
-                        console.print(f"{theme_char} [yellow]Recovered state from backup.[/yellow]")
                     return {tid: normalize_task(tval) for tid, tval in raw_data.items()}
                 except Exception:
                     return {}
@@ -235,7 +225,7 @@ def _run_verify(cmd: str) -> tuple[bool, str]:
         )
         output = result.stdout + result.stderr
         if len(output) > MAX_VERIFY_OUTPUT:
-            output = output[:MAX_VERIFY_OUTPUT] + f"\\n...[truncated, {len(output)} chars total]"
+            output = output[:MAX_VERIFY_OUTPUT] + f"\n...[truncated, {len(output)} chars total]"
         return (result.returncode == 0), output
     except subprocess.TimeoutExpired:
         return False, "Verification command timed out after 30s."
@@ -252,7 +242,11 @@ def task_init(tasks: List[Dict[str, Any]]) -> dict:
                Optional: deliverable, depends_on.
     """
     if not tasks:
-        return create_tool_response(status="error", error_code="EMPTY_PLAN", error_message="tasks list is empty.")
+        return create_tool_response(
+            status="error",
+            error_code="EMPTY_PLAN",
+            error_message="tasks list is empty.",
+        )
 
     try:
         new_state: Dict[str, Task] = {}
@@ -263,35 +257,41 @@ def task_init(tasks: List[Dict[str, Any]]) -> dict:
             norm_t["status"] = "pending"
             new_state[norm_t["id"]] = norm_t
     except TaskValidationError as e:
-        return create_tool_response(status="error", error_code="INVALID_TASK", error_message=str(e))
+        return create_tool_response(
+            status="error",
+            error_code="INVALID_TASK",
+            error_message=str(e),
+        )
 
     missing = _missing_dependencies(new_state)
     if missing:
         return create_tool_response(
-            status="error", error_code="MISSING_DEPENDENCY",
-            error_message=f"Tasks reference unknown dependencies: {missing}"
+            status="error",
+            error_code="MISSING_DEPENDENCY",
+            error_message=f"Tasks reference unknown dependencies: {missing}",
         )
 
     cycle = _detect_cycle(new_state)
     if cycle:
         return create_tool_response(
-            status="error", error_code="DEPENDENCY_CYCLE",
-            error_message=f"Dependency cycle detected: {' -> '.join(cycle)}"
+            status="error",
+            error_code="DEPENDENCY_CYCLE",
+            error_message=f"Dependency cycle detected: {' -> '.join(cycle)}",
         )
 
     try:
         save(new_state)
     except Exception as e:
-        console.print(f"{theme_char} [dim red]Plan initialization failed: {e}[/dim red]")
-        return create_tool_response(status="error", error_code="SAVE_FAILED", error_message=str(e))
+        return create_tool_response(
+            status="error",
+            error_code="SAVE_FAILED",
+            error_message=str(e),
+        )
 
-    
-    console.print(f"{theme_char} [dim]Project plan initialized with {len(new_state)} tasks.[/dim]")
-    
     return create_tool_response(
         status="success",
         data={"tasks_initialized": list(new_state.keys())},
-        metadata={"state_delta": "Plan initialized"}
+        metadata={"state_delta": f"Initialized {len(new_state)} task(s)"},
     )
 
 
@@ -303,33 +303,47 @@ def task_update(id: str, action: Literal["start", "submit"], evidence: Optional[
     - 'submit': Runs verify_cmd. Success -> done, Fail -> failed. Optional
       `evidence` (e.g. a summary of what was done) is stored on the task.
     """
-    state = load()  # Ensure we have freshest state
+    state = load()
 
     if id not in state:
-        return create_tool_response(status="error", error_code="TASK_NOT_FOUND", error_message=f"Task {id} not found.")
+        return create_tool_response(
+            status="error",
+            error_code="TASK_NOT_FOUND",
+            error_message=f"Task {id} not found.",
+        )
 
     if action not in ("start", "submit"):
-        return create_tool_response(status="error", error_code="INVALID_ACTION", error_message=f"Unknown action '{action}'.")
+        return create_tool_response(
+            status="error",
+            error_code="INVALID_ACTION",
+            error_message=f"Unknown action '{action}'.",
+        )
 
     try:
         if action == "start":
             allowed, reason = can_start(state, id)
             if not allowed:
-                console.print(f"{theme_char} [dim red]Task start failed: {reason}[/dim red]")
-                return create_tool_response(status="error", error_code="PRECONDITION_FAILED", error_message=reason)
+                return create_tool_response(
+                    status="error",
+                    error_code="PRECONDITION_FAILED",
+                    error_message=reason,
+                )
 
             state[id]["status"] = "in_progress"
             save(state)
-            console.print(f"{theme_char} [dim]Task {id} started successfully[/dim]")
             return create_tool_response(
                 status="success",
                 data={"id": id, "status": "in_progress"},
-                metadata={"state_delta": f"Task {id} started"}
+                metadata={"state_delta": f"Task {id} started"},
             )
 
         # action == "submit"
         if state[id].get("status") != "in_progress":
-            return create_tool_response(status="error", error_code="INVALID_STATE", error_message="Task must be in_progress to submit.")
+            return create_tool_response(
+                status="error",
+                error_code="INVALID_STATE",
+                error_message="Task must be in_progress to submit.",
+            )
 
         verify_cmd = state[id].get("verify_cmd", "true")
         success, output = _run_verify(verify_cmd)
@@ -340,26 +354,28 @@ def task_update(id: str, action: Literal["start", "submit"], evidence: Optional[
         if success:
             state[id]["status"] = "done"
             save(state)
-            console.print(f"{theme_char}    [dim]Verification by harness succesfull. Marking task as done[/dim] [green]ID: {id}[/green]")
             return create_tool_response(
                 status="success",
                 data={"id": id, "status": "done", "verification": "Passed"},
-                metadata={"state_delta": f"Task {id} verified and completed"}
+                metadata={"state_delta": f"Task {id} verified and completed"},
             )
         else:
             state[id]["status"] = "failed"
             save(state)
-            console.print(f"{theme_char} [red]Verification failed for task {id}[/red]")
             return create_tool_response(
                 status="error",
                 data={"id": id, "output": output},
                 error_code="VERIFICATION_FAILED",
                 error_message=f"Verification command failed: {verify_cmd}",
-                recovery_hint=f"Review the output and call task_replan with this task_id. Output: {output}"
+                recovery_hint=f"Review the output and call task_replan with this task_id. Output: {output}",
+                metadata={"state_delta": f"Task {id} verification failed"},
             )
     except Exception as e:
-        console.print(f"{theme_char} [dim red]Task update failed: {e}[/dim red]")
-        return create_tool_response(status="error", error_code="INTERNAL_ERROR", error_message=str(e))
+        return create_tool_response(
+            status="error",
+            error_code="INTERNAL_ERROR",
+            error_message=str(e),
+        )
 
 
 @tool
@@ -370,14 +386,18 @@ def task_replan(failed_task_id: str, reason: str, new_tasks: List[Dict[str, Any]
     state = load()
 
     if failed_task_id not in state or state[failed_task_id].get("status") != "failed":
-        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", 
-                                    error_code="INVALID_TASK_STATE", 
-                                    error_message="Task must be 'failed' to replan.")
+        return create_tool_response(
+            status="error",
+            error_code="INVALID_TASK_STATE",
+            error_message="Task must be 'failed' to replan.",
+        )
 
     if not new_tasks:
-        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", 
-                                    error_code="EMPTY_REPLAN", 
-                                    error_message="new_tasks is empty.")
+        return create_tool_response(
+            status="error",
+            error_code="EMPTY_REPLAN",
+            error_message="new_tasks is empty.",
+        )
 
     try:
         candidate = dict(state)
@@ -393,45 +413,56 @@ def task_replan(failed_task_id: str, reason: str, new_tasks: List[Dict[str, Any]
             candidate[norm_t["id"]] = norm_t
             added_ids.append(norm_t["id"])
     except TaskValidationError as e:
-        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", 
-                                    error_code="INVALID_TASK", 
-                                    error_message=str(e))
+        return create_tool_response(
+            status="error",
+            error_code="INVALID_TASK",
+            error_message=str(e),
+        )
 
     missing = _missing_dependencies(candidate)
     if missing:
-        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", 
-                                    error_code="MISSING_DEPENDENCY", 
-                                    error_message=f"Tasks reference unknown dependencies: {missing}")
+        return create_tool_response(
+            status="error",
+            error_code="MISSING_DEPENDENCY",
+            error_message=f"Tasks reference unknown dependencies: {missing}",
+        )
 
     cycle = _detect_cycle(candidate)
     if cycle:
-        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", 
-                                    error_code="DEPENDENCY_CYCLE", 
-                                    error_message=f"Dependency cycle detected: {' -> '.join(cycle)}")
+        return create_tool_response(
+            status="error",
+            error_code="DEPENDENCY_CYCLE",
+            error_message=f"Dependency cycle detected: {' -> '.join(cycle)}",
+        )
 
     for aid in added_ids:
         if failed_task_id in candidate[aid].get("depends_on", []):
             return create_tool_response(
-                status="error", 
+                status="error",
                 error_code="INVALID_DEPENDENCY",
-                error_message=f"New task '{aid}' depends on superseded task '{failed_task_id}', which can never become 'done'.")
+                error_message=f"New task '{aid}' depends on superseded task '{failed_task_id}', which can never become 'done'.",
+            )
 
     try:
         save(candidate)
     except Exception as e:
-        console.print(f"{theme_char} [dim red]Replan failed[/dim red]"); return create_tool_response(status="error", error_code="SAVE_FAILED", error_message=str(e))
+        return create_tool_response(
+            status="error",
+            error_code="SAVE_FAILED",
+            error_message=str(e),
+        )
 
-    log_entry = f"Replan: Task {failed_task_id} failed. Reason: {reason}. Added {len(new_tasks)} new tasks: {added_ids}.\\n"
+    log_entry = f"Replan: Task {failed_task_id} failed. Reason: {reason}. Added {len(new_tasks)} new tasks: {added_ids}.\n"
     try:
         with open(STATE_DIR / "progress.log", "a") as f:
             f.write(log_entry)
     except Exception:
         pass  # a logging failure shouldn't fail the whole replan
 
-    console.print(f"{theme_char} [dim]Task replanned successfully[/dim]"); return create_tool_response(
+    return create_tool_response(
         status="success",
         data={"superseded": failed_task_id, "added": added_ids},
-        metadata={"state_delta": "Plan updated via replan"}
+        metadata={"state_delta": f"Replanned: {failed_task_id} → {len(added_ids)} new task(s)"},
     )
 
 
@@ -445,66 +476,14 @@ def task_clear() -> dict:
         if backup.exists():
             backup.unlink()
     except Exception as e:
-        console.print(f"{theme_char} [dim red]Task state clear failed: {e}[/dim red]")
-        return create_tool_response(status="error", error_code="CLEAR_ERROR", error_message=str(e))
+        return create_tool_response(
+            status="error",
+            error_code="CLEAR_ERROR",
+            error_message=str(e),
+        )
 
-    console.print(f"{theme_char} [dim]Task state cleared successfully.[/dim]")
     return create_tool_response(
         status="success",
         data={"state_cleared": True},
-        metadata={"state_delta": "Full state reset"}
+        metadata={"state_delta": "Full state reset"},
     )
-
-# ============================================================================
-# SESSION MANAGEMENT
-# ============================================================================
-
-class SessionManager:
-    """
-    Handles persisting the conversation history to disk so a user can
-    resume a chat later. 
-    """
-    def __init__(self):
-        # Use a dedicated sessions folder in the root project directory
-        # instead of nesting it inside the states folder.
-        from utils.bootstrap import root
-        self.sessions_dir = root / "sessions"
-        self.sessions_dir.mkdir(parents=True, exist_ok=True)
-
-    def save_session(self, session_id: str, messages: List[Any]):
-        path = self.sessions_dir / f"{session_id}.json"
-        # Since messages are LangChain objects, we use a simple serialization
-        serialized = []
-        for m in messages:
-            serialized.append({"type": type(m).__name__, "content": m.content})
-        
-        with open(path, "w") as f:
-            json.dump(serialized, f, indent=4)
-
-    def load_session(self, session_id: str) -> List[Any]:
-        path = self.sessions_dir / f"{session_id}.json"
-        if not path.exists():
-            return []
-        
-        with open(path, "r") as f:
-            data = json.load(f)
-        
-        from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
-        mapping = {"HumanMessage": HumanMessage, "AIMessage": AIMessage, "SystemMessage": SystemMessage}
-        
-        if isinstance(data, dict) and "messages" in data:
-            messages_list = data["messages"]
-        elif isinstance(data, list):
-            messages_list = data
-        else:
-            return []
-        
-        return [mapping.get(item["type"], HumanMessage)(content=item["content"]) for item in messages_list if isinstance(item, dict)]
-
-    def list_sessions(self) -> List[str]:
-        return [f.stem for f in self.sessions_dir.glob("*.json")]
-
-    def delete_session(self, session_id: str):
-        path = self.sessions_dir / f"{session_id}.json"
-        if path.exists():
-            path.unlink()

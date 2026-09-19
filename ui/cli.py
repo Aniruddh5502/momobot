@@ -1,5 +1,5 @@
 import sys
-import shutil
+import shutil, json
 import logging
 import uuid
 from typing import Optional, Dict, Any
@@ -13,7 +13,6 @@ from langchain_core.messages import HumanMessage, AIMessage, BaseMessage, ToolMe
 from bootstrap import config
 from core.engine import MomobotAgent
 from core.state import AgentState
-from cmd.registry import CommandRegistry
 from cmd.registry import CommandRegistry, CommandResult
 from cmd.session_cmds import register_session_commands, register_session_name
 
@@ -28,6 +27,7 @@ white           =   "#FFFFFF"
 black           =   "#000000"
 cloud_light     =   "#BFBFBA"
 
+
 class MomobotInterface:
     """
     Production-grade CLI Interface for Momobot.
@@ -39,29 +39,29 @@ class MomobotInterface:
         self.console = Console()
         self.registry = CommandRegistry()
         register_session_commands(self.registry)
-        
+
         self.theme_char = config.get("theme_char", "✽")
         self.session = self._make_session()
-        
+
         # The thread_id is the key for LangGraph persistence
         self.current_thread_id = str(uuid.uuid4())[:8]
-        
-        # State is now partially managed by the checkpointer, 
+
+        # State is now partially managed by the checkpointer,
         # but we keep a local mirror for UI responsiveness
         self.state: AgentState = self._initialize_state()
-        
+
         # Track message indices to avoid re-printing history
         self._last_printed_index = 0
 
     def _initialize_state(self) -> AgentState:
         """Creates a clean starting state for the agent."""
         return {
-            "messages": [], 
-            "summary": "", 
-            "end": "", 
-            "systemInfo": {}, 
-            "reasoning": False, 
-            "token_usages": 0, 
+            "messages": [],
+            "summary": "",
+            "end": "",
+            "systemInfo": {},
+            "reasoning": False,
+            "token_usages": 0,
             "last_action": "init"
         }
 
@@ -78,7 +78,6 @@ class MomobotInterface:
 
     def _render_message(self, message: BaseMessage):
 
-        # ---- Human turn ----
         if isinstance(message, HumanMessage):
             self.console.print(" ")
             self.console.rule(style="dim")
@@ -88,11 +87,9 @@ class MomobotInterface:
             )
             self.console.rule(style="dim")
 
-        # ---- AI turn (may contain reasoning, text, and/or tool calls) ----
         elif isinstance(message, AIMessage):
             reasoning = message.additional_kwargs.get("reasoning_content")
             if reasoning:
-                self.console.print(f"\n\n{theme_char} Thinking...\n")
                 self.console.print(Panel(
                     escape(reasoning),
                     title=f"[{self.theme_char}] Reasoning",
@@ -103,65 +100,98 @@ class MomobotInterface:
 
             if message.content:
                 self.console.print("")
-                self.console.print(f"{theme_char} ",end="")
+                self.console.print(f"{theme_char} ", end="")
                 self.console.print(Markdown(message.content))
                 self.console.print("")
 
-            # Tool calls the model requested on this turn
-            for call in (getattr(message, "tool_calls", None) or []):
-                name = call.get("name", "tool")
-                args = call.get("args", {})
-                preview = self._format_args(args)
+            
+        elif isinstance(message, ToolMessage):
+            self._render_tool_result(message)
+
+    def _render_tool_result(self, message):
+        """Render a ToolMessage using the standardized create_tool_response shape."""
+        name = getattr(message, "name", None) or "tool"
+
+        # --- Normalize content (str, list of content blocks, or other) ---
+        content = message.content
+        if isinstance(content, list):
+            content = "\n".join(
+                b.get("text", "") if isinstance(b, dict) else str(b)
+                for b in content
+            )
+        elif not isinstance(content, str):
+            content = str(content)
+
+        # --- Parse the create_tool_response payload ---
+        try:
+            parsed = json.loads(content)
+        except Exception:
+            parsed = None
+
+        if not isinstance(parsed, dict) or "status" not in parsed:
+            # Fallback for unstructured results: one-line preview.
+            preview = content.replace("\n", " ").strip()
+            if len(preview) > 100:
+                preview = preview[:100].rstrip() + "…"
+            self.console.print(
+                f"{theme_char} [dim]{name}[/dim]  [dim]{escape(preview)}[/dim]"
+            )
+            return
+
+        # --- Extract the fields we care about ---
+        status     = parsed.get("status", "success")
+        error_code = parsed.get("error_code")
+        error_msg  = parsed.get("error_message")
+        hint       = parsed.get("recovery_hint")
+        meta       = parsed.get("metadata") or {}
+
+        marker = {"success": "✓", "warning": "!", "error": "✗"}.get(status, "·")
+        color  = {"success": "green", "warning": "yellow", "error": "red"}.get(status, "dim")
+
+        # --- One-line summary ---
+        # Priority: state_delta (what the tool did) > error_message > nothing
+        summary = meta.get("state_delta") or error_msg
+        if summary:
+            summary = str(summary).replace("\n", " ").strip()
+            if len(summary) > 120:
+                summary = summary[:120].rstrip() + "…"
+
+        header = f"{theme_char} [dim]{name}[/dim]  [{color}]{marker}[/{color}]"
+        if summary:
+            header += f"  [dim]{escape(summary)}[/dim]"
+        self.console.print(header)
+
+        # --- Extra detail on failure ---
+        if status in ("error", "warning"):
+            if error_code and str(error_code) not in (summary or ""):
                 self.console.print(
-                    f"\n{theme_char} [dim]{name}[/dim][dim]({preview})[/dim]"
+                    f"     [dim]code:[/dim] [{color}]{escape(str(error_code))}[/{color}]"
+                )
+            if error_msg and str(error_msg) not in (summary or ""):
+                self.console.print(f"     [dim]msg:[/dim]  {escape(str(error_msg))}")
+            if hint:
+                self.console.print(
+                    f"     [dim]hint:[/dim] [yellow]{escape(str(hint))}[/yellow]"
                 )
 
-        # ---- Tool result ----
-        elif isinstance(message, ToolMessage):
+            color = {"success": "green", "warning": "yellow", "error": "red"}.get(status, "dim")
             name = getattr(message, "name", None) or "tool"
-            status = getattr(message, "status", "success")
-            content = message.content if isinstance(message.content, str) else str(message.content)
+            self.console.print(f"{theme_char} [dim]{name}[/dim]  result  [{color}]{status}[/{color}]")
 
-            # Tool responses are the structured dicts from create_tool_response.
-            # Show a compact one-liner plus a short preview of the payload.
-            preview = self._truncate(content, 200)
-            marker = "✓" if status == "success" else "✗"
-            color = "dim" if status == "success" else "red"
-
-            self.console.print(
-                f"\n[{color}]  {marker}  {name}:[/{color}] "
-                f"[dim]{escape(preview)}[/dim]"
-            )
-
-    @staticmethod
-    def _format_args(args: dict) -> str:
-        """Compact, single-line rendering of a tool call's args."""
-        if not isinstance(args, dict):
-            return str(args)[:80]
-        parts = []
-        for k, v in args.items():
-            s = str(v).replace("\n", " ")
-            if len(s) > 40:
-                s = s[:40] + "…"
-            parts.append(f"{k}={s}")
-        return ", ".join(parts)
-
-    @staticmethod
-    def _truncate(s: str, n: int) -> str:
-        s = s.replace("\n", " ")
-        return s if len(s) <= n else s[:n] + "…"
-        
-    def display_updates(self, state: AgentState):
+    def display_updates(self, state: AgentState, show_footer: bool = False):
         """
-        Analyzes the state and prints only the new messages 
+        Analyzes the state and prints only the new messages
         generated since the last update.
         """
         messages = state.get("messages", [])
-        
+
         for i in range(self._last_printed_index, len(messages)):
             self._render_message(messages[i])
             self._last_printed_index = i + 1
-        
+
+        if not show_footer:
+            return
+
         usages = state.get("token_usages", 0)
         cols, _ = shutil.get_terminal_size(fallback=(80, 24))
         footer = f"[dim]Token Usages: {usages}[/dim]"
@@ -199,7 +229,7 @@ class MomobotInterface:
                 self.state = cmd_result.state
             if cmd_result.render:
                 self._last_printed_index = 0
-                self.display_updates(self.state)
+                self.display_updates(self.state)          # no footer on replay
             else:
                 # Skip anything already in state (avoid re-printing history).
                 self._last_printed_index = len(self.state.get("messages", []))
@@ -230,8 +260,9 @@ class MomobotInterface:
                 thread_id=self.current_thread_id,
             ):
                 self.state = event
+                self.display_updates(self.state)                 # stream, no footer
 
-            self.display_updates(self.state)
+            self.display_updates(self.state, show_footer=True)   # footer, once
         except Exception as e:
             logger.exception("Error during agent execution")
             self.console.print(f"[bold red]Critical Error:[/bold red] {escape(str(e))}")
@@ -269,14 +300,16 @@ class MomobotInterface:
                 self.console.rule(style="dim")
                 break
 
+
 def main():
     import bootstrap
     from core.engine import MomobotAgent
-    
+
     config = bootstrap.config
     agent = MomobotAgent(config)
     interface = MomobotInterface(agent, config)
     interface.run()
+
 
 if __name__ == "__main__":
     main()
