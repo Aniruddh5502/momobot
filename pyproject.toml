@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["core", "utils", "tools", "ui", "cmd"]
+packages = ["core", "utils", "tools", "ui", "CMD"]
 py-modules = ["bootstrap", "config"]
 
 [project.scripts]
