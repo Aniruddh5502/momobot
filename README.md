@@ -1,6 +1,16 @@
 # Momobot
 
-> This one we are going to use for agent eval and harness eval
+> This one we are going to use for agent eval and harness eval. Here we shall work on some experimental features like long running sessions evaluation. System Prompt optimizations etc
+
+
+<img src=images/image_1.svg>
+<img src=images/image_1.svg>
+<img src=images/image_1.svg>
+<img src=images/image_1.svg>
+<img src=images/image_1.svg>
+<img src=images/image_1.svg>
+<img src=images/image_1.svg>
+<img src=images/image_1.svg>
 
 Momobot is a cynical AI Agent designed with a deterministic verification harness. Unlike typical AI agents, Momobot distrusts assumptions and requires evidence from the environment, tool responses, or shell command results before committing to a conclusion.
 
