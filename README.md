@@ -1,5 +1,7 @@
 # Momobot
 
+> This one we are going to use for agent eval and harness eval
+
 Momobot is a cynical AI Agent designed with a deterministic verification harness. Unlike typical AI agents, Momobot distrusts assumptions and requires evidence from the environment, tool responses, or shell command results before committing to a conclusion.
 
 ## Stability and Reliability
