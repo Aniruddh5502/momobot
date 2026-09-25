@@ -41,6 +41,7 @@ class MomobotInterface:
         register_session_commands(self.registry)
 
         self.theme_char = config.get("theme_char", "✽")
+        self.ai_response = "⬤"
         self.session = self._make_session()
 
         # The thread_id is the key for LangGraph persistence
@@ -92,7 +93,7 @@ class MomobotInterface:
             if reasoning:
                 self.console.print(Panel(
                     escape(reasoning),
-                    title=f"[{self.theme_char}] Reasoning",
+                    title=f"[{self.ai_response}] Reasoning",
                     title_align="left",
                     border_style="dim",
                     style="italic dim",
@@ -100,7 +101,7 @@ class MomobotInterface:
 
             if message.content:
                 self.console.print("")
-                self.console.print(f"{theme_char} ", end="")
+                self.console.print(f"{self.ai_response} ", end="")
                 self.console.print(Markdown(message.content))
                 self.console.print("")
 
