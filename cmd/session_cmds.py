@@ -132,7 +132,7 @@ def _list_sessions() -> List[Dict[str, str]]:
 # Deletion & pruning
 # ---------------------------------------------------------------------------
 
-MAX_SESSIONS = 10  # keep the newest N; prune the rest
+MAX_SESSIONS = 1000  # keep the newest N; prune the rest
 
 
 def _delete_session_data(thread_id: str) -> None:

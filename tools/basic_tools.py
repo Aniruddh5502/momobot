@@ -12,62 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 workspace = WORKSPACE_DIR
 
 
-@tool
-def write(filePath: str, content: str) -> dict:
-    """
-    Writes content to a file within the workspace. Creates parent directories if needed.
-    Returns a verification snippet of the written content to eliminate the need for a subsequent read call.
-    Args:
-        filePath: Path relative to workspace root (e.g. 'src/main.py')
-        content: Content to write to the file
-    """
-    try:
-        target_path = (Path(workspace) / filePath).resolve()
-        workspace_resolved = Path(workspace).resolve()
-
-        try:
-            target_path.relative_to(workspace_resolved)
-        except ValueError:
-            return create_tool_response(
-                status="error",
-                error_code="OUT_OF_WORKSPACE",
-                error_message=f"The path '{filePath}' is outside the allowed workspace boundary.",
-                recovery_hint="Ensure the path is relative to the workspace root and does not use '..' to climb out."
-            )
-
-        is_new = not target_path.exists()
-        target_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(target_path, 'w', encoding='utf-8') as f:
-            f.write(content)
-        with open(target_path, 'r', encoding='utf-8') as f:
-            full_text = f.read()
-            snippet = full_text[-20:] if len(full_text) > 20 else full_text
-
-        return create_tool_response(
-            status="success",
-            data={"filePath": filePath, "bytes_written": len(content)},
-            metadata={
-                "state_delta": f"{'Created' if is_new else 'Updated'} {filePath} ({len(content):,} bytes)",
-                "verification_snippet": f"...{snippet}",
-                "full_path": str(target_path)
-            }
-        )
-
-    except PermissionError:
-        return create_tool_response(
-            status="error",
-            error_code="PERMISSION_DENIED",
-            error_message=f"Insufficient permissions to write to '{filePath}'.",
-            recovery_hint="Check if the file is read-only or locked by another process."
-        )
-    except Exception as e:
-        return create_tool_response(
-            status="error",
-            error_code="INTERNAL_WRITE_ERROR",
-            error_message=str(e),
-            recovery_hint="Check disk space or filesystem integrity."
-        )
-
+from tools.write import write
 
 @tool
 def read(filePath: str) -> dict:
