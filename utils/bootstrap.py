@@ -53,7 +53,17 @@ def build_system_prompt(state: Dict[str, Any]) -> str:
     summary = state.get("summary", "No summary available.")
     state_str = f"\n\n# Task State Summary:\n{summary}"
 
+    # 4. Project Config
+    momo_file = WORKSPACE_DIR / "momo.md"
+    try:
+        with open(momo_file, 'r', encoding='utf-8') as file:
+            momo_ = momo_file.read_text()
+        momo_content = f"\n\n# Project Specific tools and files locations\n{momo_}"
+    except:
+        momo_content = ""
+        
+        
     # Combine all parts
-    full_prompt = f"{soul_content}{sys_info_str}{state_str}"
+    full_prompt = f"{soul_content}{sys_info_str}{state_str}{momo_content}"
     
     return full_prompt
