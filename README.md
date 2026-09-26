@@ -1,6 +1,6 @@
 # Momobot
 
-> This one we are going to use for agent eval and harness eval. Here we shall work on some experimental features like long running sessions evaluation. System Prompt optimizations etc
+This project is a progression to use Finetuned and RL trained models small in size and use them as main agent with langgraph orchastration and aligned with constitution.
 
 
 <img src=images/image_1.svg><img src=images/image_1.svg><img src=images/image_1.svg>

@@ -33,6 +33,9 @@ pip-wheel-setuptools/
 venv/
 ENV/
 
+# Files
+constitution.md
+
 # OS specific
 .DS_Store
 Thumbs.db
